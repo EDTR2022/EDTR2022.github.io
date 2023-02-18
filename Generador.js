@@ -209,11 +209,11 @@ function onRedimensionar() {
     }
 
     eje1_Y = Lienzo.height / 3;
-    eje2_Y = 2 * Lienzo.height / 3 + 50 * factorY;
+    eje2_Y = 2 * Lienzo.height / 3 + 75 * factorY;
 
-    let xPos=0.07*Lienzo.width;
-    PeriodoXY=[xPos-36,xPos-12,xPos+12,xPos+36];
-    //PeriodoXY=[Lienzo.width/2-36,Lienzo.width/2-12,Lienzo.width/2+12,Lienzo.width/2+36];
+    //let xPos=0.07*Lienzo.width;
+    //PeriodoXY=[xPos-36,xPos-12,xPos+12,xPos+36];
+    PeriodoXY=[Lienzo.width/2-36,Lienzo.width/2-12,Lienzo.width/2+12,Lienzo.width/2+36];
 }
 
 window.addEventListener("resize", onRedimensionar);
@@ -546,7 +546,7 @@ Lienzo.addEventListener("mousemove", function (evt) {
                                         }
                                     }
                                     if(pdetalles=="pPeriodo"){
-                                        let y=eje1_Y+AmplitudMax+23;
+                                        let y=eje1_Y+AmplitudMax+13;
                                         for(let i=0;i<4;i++){
                                             if(!PeriodoVal[i]){
                                                 if (onArea(Lienzo, evt, PeriodoXY[i],y , over)){
@@ -696,7 +696,7 @@ function onBarraSuperior(Base) {
 
 function onBarraBotones() {
     seccion = (Lienzo.height / divisiones);
-    AltoY = Lienzo.height/2;//(divisiones - 1) * seccion-35;
+    AltoY = Lienzo.height/2+20;//(divisiones - 1) * seccion-35;
     seccion=0.7*seccion;
     let Margen = seccion / 2;
     let DtM=Lienzo.width/2;
@@ -734,7 +734,7 @@ function fDibujarCurvas() {
     let ordenada = [];
     let xFinal=[PosX1,PosX1,PosX1],yFinal=[]; 
         
-    let t,EdTr,PaAc,DdTa,SdTa,MdTa, colorCurva,profundidad=eje1_Y+AmplitudMax+20,txt;
+    let t,EdTr,PaAc,DdTa,SdTa,MdTa, colorCurva,profundidad=eje1_Y+AmplitudMax+10,txt;
         
     for (let j = 0; j < NoCurvas; j++) {
         abscisa[j] = PosX1;
@@ -1433,7 +1433,7 @@ function graficar() {
                     onMaximosMinimos();
                     break;
                 case "pPeriodo":
-                    let y=eje1_Y+AmplitudMax+17;
+                    let y=eje1_Y+AmplitudMax+7;
                     for(let i=0;i<4;i++){
                         if(PeriodoVal[i]){
                             onRoundRect(pincel,PeriodoXY[i]-6,y,12,12,2,"","black","black");
