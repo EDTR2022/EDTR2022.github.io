@@ -301,12 +301,22 @@ Lienzo.addEventListener("click", function () {
     }
     else {
         if (!(contador < 20)&&(contador<32)) {
-            curvaClick[contador - 20] = curvaClick[contador - 20] ? false : true;
+            //curvaClick[contador - 20] = curvaClick[contador - 20] ? false : true;
             curvaSeleccionada = false;
             continuar=true;
+            let RmAj=contador-20;
+            
             for (let i = 0; i < NoCurvas; i++) {
-                if (curvaClick[i]) {
-                    curvaSeleccionada = true;
+                if(i==RmAj){
+                    if (curvaClick[RmAj] = curvaClick[RmAj] ? false : true) {
+                        curvaSeleccionada = true;
+                        break;
+                    }
+
+                }
+                else{
+                    curvaClick[i]=false;
+
                 }
             }
             if(!curvaSeleccionada){
