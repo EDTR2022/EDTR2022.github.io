@@ -310,7 +310,7 @@ Lienzo.addEventListener("click", function () {
                 if(i==RmAj){
                     if (curvaClick[RmAj] = curvaClick[RmAj] ? false : true) {
                         curvaSeleccionada = true;
-                        break;
+                        //break;
                     }
 
                 }
