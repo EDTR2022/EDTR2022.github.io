@@ -1138,20 +1138,22 @@ function onElongacion(PosX){
                 pincel.textAlign = "center";
                 pincel.textBaseline = "middle";
                 let MdTa;
-                if(SdTa>0){
-                    MdTa=JPdTa-15;
+                if(SdTa>0){ 
+                    MdTa=-15;
                 }
                 else{
-                    MdTa=JPdTa+15;
+                    MdTa=+15;
                 }
-                pincel.fillText(txt, t, MdTa);
-                pincel.strokeStyle ="gray";
+                pincel.fillText(txt, t, JPdTa+MdTa);
+                txt="t="+j.toFixed(1)+" s";
+                pincel.fillText(txt, t, eje1_Y-MdTa);
+                /*pincel.strokeStyle ="gray";
                 pincel.lineWidth = 0.5;
                 pincel.beginPath();
                 pincel.moveTo(t,JPdTa);
                 pincel.lineTo(PosX1,JPdTa);
                 pincel.stroke();
-                pincel.closePath();
+                pincel.closePath();*/
             }
             
         }
