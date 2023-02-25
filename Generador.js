@@ -162,7 +162,7 @@ var PeriodoXY=[],PeriodoVal=[true,false,false];
     ctx.closePath();
 }*/
 
-function onRoundRectXY(ctx, x, y, width, height, radius, txt, fuenteTxt, sub,color1, color2,color3) {
+function onRoundRectXY(ctx, x, y, width, height, radius, txt, fuenteTxt, sub,Nosubs,color1, color2,color3) {
     ctx.strokeStyle = color1;
     ctx.fillStyle = color2;
     ctx.lineWidth = 2;
@@ -184,6 +184,7 @@ function onRoundRectXY(ctx, x, y, width, height, radius, txt, fuenteTxt, sub,col
         ctx.fillStyle = color3;
         ctx.font = fuenteTxt;
         if(sub != 0 ){
+            
             let iniX= centroX - ctx.measureText(txt).width/2;
             let izquierda=txt.substring(0,sub);
             ctx.textAlign = "left";
@@ -191,12 +192,13 @@ function onRoundRectXY(ctx, x, y, width, height, radius, txt, fuenteTxt, sub,col
             ctx.fillText(izquierda,iniX,centroY);
             
             iniX=iniX+pincel.measureText(izquierda).width;
+            let subindices= txt.substring(sub,sub+Nosubs);
             ctx.textAlign = "left";
             ctx.textBaseline = "top";
-            ctx.fillText(txt[sub],iniX,centroY);
+            ctx.fillText(subindices,iniX,centroY);
             
-            iniX=iniX+ctx.measureText( txt[sub]).width;
-            let derecha=txt.substring(sub+1,txt.length);
+            iniX=iniX+ctx.measureText(subindices).width;
+            let derecha=txt.substring(sub+Nosubs,txt.length);
             ctx.textAlign = "left";
             ctx.textBaseline = "middle";
             ctx.fillText(derecha,iniX,centroY);
@@ -678,7 +680,7 @@ function onBarraSuperior(Base) {
     pincel.lineWidth = 3;
     pincel.beginPath();
     onRoundRectXY(pincel, InicioBarraHerramientas, AnchoP,
-        Anchor, Base - AnchoP, 0, "", "",0,"black", "rgba(255,255,255,0.7)");
+        Anchor, Base - AnchoP, 0, "", "",0,0,"black", "rgba(255,255,255,0.7)");
     pincel.closePath();
 
     pincel.lineWidth = 1;
@@ -699,12 +701,12 @@ function onBarraSuperior(Base) {
             }
 
         }
-        onRoundRectXY(pincel, XRect[i] - 5, Base - 60, 10, 10, 0, "","",0, color1, color2);
-        onRoundRectXY(pincel, XRect[i] - Ancho / 2, DesY1[i], Ancho, Altura[i], 0, "", "",0,color3, color4);
+        onRoundRectXY(pincel, XRect[i] - 5, Base - 60, 10, 10, 0, "","",0,0, color1, color2);
+        onRoundRectXY(pincel, XRect[i] - Ancho / 2, DesY1[i], Ancho, Altura[i], 0, "", "",0,0,color3, color4);
         pincel.closePath();
 
         if(vSJAmplitud){
-            onRoundRectXY(pincel,XRect[i]-0.6*Ancho/2,DesY1[i] -4,0.6*Ancho,8,3,"","",0,"black","#FCF3CF");
+            onRoundRectXY(pincel,XRect[i]-0.6*Ancho/2,DesY1[i] -4,0.6*Ancho,8,3,"","",0,0,"black","#FCF3CF");
         }
         else{
             if(vSJPeriodo){
@@ -716,7 +718,7 @@ function onBarraSuperior(Base) {
                 pincel.closePath();
             }
             else{
-                onRoundRectXY(pincel,XRect[i]-0.6*Ancho/2,DesY1[i] -4,0.6*Ancho,8,3,"","",0,"black","#ABEBC6");
+                onRoundRectXY(pincel,XRect[i]-0.6*Ancho/2,DesY1[i] -4,0.6*Ancho,8,3,"","",0,0,"black","#ABEBC6");
                 pincel.beginPath();
                 pincel.fillStyle = "red";
                 pincel.arc(XRect[i], DesY1[i], over, 0, circunferencia);
@@ -969,7 +971,7 @@ function onMenuFormas(){
     var fuente = "bold 16px Serif";
     var AnchoMenu=150,AltoMenu=170;
             
-    onRoundRectXY(pincel,CxyMenu.x,CxyMenu.y+20,AnchoMenu,AltoMenu,3,"","",0,"lightgray","white");
+    onRoundRectXY(pincel,CxyMenu.x,CxyMenu.y+20,AnchoMenu,AltoMenu,3,"","",0,0,"lightgray","white");
     
     pincel.beginPath()
     pincel.font = fuente;
@@ -1043,7 +1045,7 @@ function onMenu2XY(){
     var fuente = "bold 16px Serif";
     var AnchoMenu=165,AltoMenu=215;
             
-    onRoundRectXY(pincel,CxyMenu2.x-AnchoMenu,CxyMenu2.y+20,AnchoMenu,AltoMenu,3,"","",0,"lightgray","white");
+    onRoundRectXY(pincel,CxyMenu2.x-AnchoMenu,CxyMenu2.y+20,AnchoMenu,AltoMenu,3,"","",0,0,"lightgray","white");
     pincel.beginPath()
     pincel.font = fuente;
     pincel.textAlign = "left";
@@ -1061,7 +1063,7 @@ function onMenu3XY(){
     var fuente = "bold 16px Serif";
     var AnchoMenu=180,AltoMenu=190;
             
-    onRoundRectXY(pincel,CxyMenu3.x-AnchoMenu,CxyMenu3.y+20,AnchoMenu,AltoMenu,3,"","",0,"lightgray","white");
+    onRoundRectXY(pincel,CxyMenu3.x-AnchoMenu,CxyMenu3.y+20,AnchoMenu,AltoMenu,3,"","",0,0,"lightgray","white");
     pincel.beginPath()
     pincel.font = fuente;
     pincel.textAlign = "left";
@@ -1443,9 +1445,9 @@ function graficar() {
     pincel.stroke();
     pincel.closePath();
     
-    onRoundRectXY(pincel,PosX2-20,eje2_Y+AmplitudMax+10,20,20,2,"+","bold 24px Serif",0,"gray",colorEscala2,"black");
-    onRoundRectXY(pincel,PosX2-50,eje2_Y+AmplitudMax+10,20,20,2,"-","bold 24px Serif",0,"gray",colorEscala1,"black");
-    onRoundRectXY(pincel,PosX2-80,eje2_Y+AmplitudMax+10,20,20,2,"r","bold 24px Serif",0,"gray",colorEscala3,"black");
+    onRoundRectXY(pincel,PosX2-20,eje2_Y+AmplitudMax+10,20,20,2,"+","bold 24px Serif",0,0,"gray",colorEscala2,"black");
+    onRoundRectXY(pincel,PosX2-50,eje2_Y+AmplitudMax+10,20,20,2,"-","bold 24px Serif",0,0,"gray",colorEscala1,"black");
+    onRoundRectXY(pincel,PosX2-80,eje2_Y+AmplitudMax+10,20,20,2,"r","bold 24px Serif",0,0,"gray",colorEscala3,"black");
 
     onBarraSuperior(LineaBase);
      
@@ -1483,7 +1485,7 @@ function graficar() {
                     let y=eje1_Y+AmplitudMax+7;
                     for(let i=0;i<4;i++){
                         if(PeriodoVal[i]){
-                            onRoundRectXY(pincel,PeriodoXY[i]-6,y,12,12,2,"","",0,"black","black");
+                            onRoundRectXY(pincel,PeriodoXY[i]-6,y,12,12,2,"","",0,0,"black","black");
                             switch (i+1){
                                 case 1:
                                     onPeriodo1();
@@ -1500,7 +1502,7 @@ function graficar() {
                             }
                         }
                         else{
-                            onRoundRectXY(pincel,PeriodoXY[i]-6,y,12,12,2,"","",0,"gray","white");
+                            onRoundRectXY(pincel,PeriodoXY[i]-6,y,12,12,2,"","",0,0,"gray","white");
                         }
                     }
                     break;
@@ -1554,6 +1556,7 @@ function graficar() {
         let fuenteM=fuente;
         let subindice=0;
         let colorFuente="white";
+        let Nosubs=1;
         
         if (contador > 3) {
             switch (contador) {
@@ -1594,7 +1597,8 @@ function graficar() {
                     q = contador - 7;
                     B = (LineaBase-DesY1[q])>0? LineaBase + 10:LineaBase-35;
                     A = XRect[q];
-                    
+                    Nosubs=(q+1)>9?2:1;
+
                     if (vSJAmplitud) {
                         Amp = q+1 + "=" +(2 * parametro[NoDatos * q] / AmplitudMax).toFixed(2);
                         q = 5;
@@ -1617,7 +1621,8 @@ function graficar() {
                     break;
             }
         }
-        onRoundRectXY(pincel, A, B, C,AltoSeccion, 3, texto[q] + Amp,fuenteM,subindice, "blue", "blue",colorFuente);
+        //console.log(Nosubs)
+        onRoundRectXY(pincel, A, B, C,AltoSeccion, 3, texto[q] + Amp,fuenteM,subindice, Nosubs, "blue", "blue",colorFuente);
     }
 }
 
