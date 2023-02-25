@@ -686,12 +686,13 @@ function onBarraSuperior(Base) {
     pincel.lineWidth = 1;
     for (let i = 0; i < NoCurvas; ++i) {
         DesY1[i] = Base - Altura[i];
-        let color1 = "gray", color2 = "white", color3 = "black", color4 = parametro[NoDatos * i + 3];
+        let color1 = "gray", color2 = "white", color3 = "black", color4 = parametro[NoDatos * i + 3], color5="lightgray";
         
         pincel.beginPath();
 
         if (curvaClick[i]) {
             color2 = parametro[NoDatos * i + 3];
+            color5="#FCF3CF";
 
         }
         else {
@@ -706,12 +707,12 @@ function onBarraSuperior(Base) {
         pincel.closePath();
 
         if(vSJAmplitud){
-            onRoundRectXY(pincel,XRect[i]-0.6*Ancho/2,DesY1[i] -4,0.6*Ancho,8,3,"","",0,0,"black","#FCF3CF");
+            onRoundRectXY(pincel,XRect[i]-0.6*Ancho/2,DesY1[i] -4,0.6*Ancho,8,3,"","",0,0,"black",color5);//"#FCF3CF");
         }
         else{
             if(vSJPeriodo){
                 pincel.beginPath();
-                pincel.fillStyle = "black";
+                pincel.fillStyle = color5;//"black";
                 pincel.arc(XRect[i], DesY1[i], over, 0, circunferencia);
                 pincel.stroke()
                 pincel.fill();
@@ -720,7 +721,7 @@ function onBarraSuperior(Base) {
             else{
                 onRoundRectXY(pincel,XRect[i]-0.6*Ancho/2,DesY1[i] -4,0.6*Ancho,8,3,"","",0,0,"black","#ABEBC6");
                 pincel.beginPath();
-                pincel.fillStyle = "red";
+                pincel.fillStyle = color5;//"red";
                 pincel.arc(XRect[i], DesY1[i], over, 0, circunferencia);
                 pincel.stroke()
                 pincel.fill();
@@ -1621,7 +1622,6 @@ function graficar() {
                     break;
             }
         }
-        //console.log(Nosubs)
         onRoundRectXY(pincel, A, B, C,AltoSeccion, 3, texto[q] + Amp,fuenteM,subindice, Nosubs, "blue", "blue",colorFuente);
     }
 }
