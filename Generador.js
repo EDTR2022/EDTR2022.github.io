@@ -36,7 +36,7 @@ var DesfaseMax = 90;
 var Txycoeficiente=1.0;
 var colorEscala1="white",colorEscala2="white",colorEscala3="white";
 
-var CxyDesplazamiento = { x: 0, y: 0 }, CxyVelocidad = { x: 0, y: 0 }, CxyAceleracion = { x: 0, y: 0 }, CxyMenu = { x: 0, y: 0 };
+//var CxyDesplazamiento = { x: 0, y: 0 }, CxyVelocidad = { x: 0, y: 0 }, CxyAceleracion = { x: 0, y: 0 }, CxyMenu = { x: 0, y: 0 };
 
 const desplazamientoTrue = new Image();
 desplazamientoTrue.src = "A.svg";
@@ -121,8 +121,9 @@ var CoefAmplitud=1;
 var RatonAbajo = false;
 var CxyRaton;//Coordenadas del raton;
 var CxyDesplazamiento = { x: 0, y: 0 }, CxyVelocidad = { x: 0, y: 0 }, CxyAceleracion = { x: 0, y: 0 }, CxyMenu = { x: 0, y: 0 };
-var CxyMenu2 = { x: 20, y: 20 };
-var CxyMenu3 = { x: 20, y: 20 };
+
+var CxyMenu2;// = { x: 20, y: 20 };
+var CxyMenu3;// = { x: 20, y: 20 };
 var CxyLogo = { x: 0, y: 0 };
 
 var sobre = [false, false, false, false];
@@ -223,7 +224,8 @@ function onRedimensionar() {
 
     eje1_Y = Lienzo.height / 3;
     eje2_Y = 2 * Lienzo.height / 3 + 75 * factorY;
-
+    CxyMenu2={ x: Lienzo.width - 50, y: eje1_Y-AmplitudMax+22 };
+    CxyMenu3={ x: Lienzo.width - 50, y: eje2_Y-AmplitudMax+22 };
     
     PeriodoXY=[Lienzo.width/2-36,Lienzo.width/2-12,Lienzo.width/2+12,Lienzo.width/2+36];
 }
@@ -483,7 +485,7 @@ Lienzo.addEventListener("mousemove", function (evt) {
                 contador = 3;
             }
             else {
-                if (onArea(Lienzo, evt, CxyMenu.x, CxyMenu.y, 3 * over)){;// && !curvaSeleccionada) {
+                if (onArea(Lienzo, evt, CxyMenu.x, CxyMenu.y, 3*over)){;// && !curvaSeleccionada) {
                     contador=(pMenu2 || pMenu3)?0:4;
                 }
                 else {
@@ -1009,8 +1011,9 @@ function onBotonXY(C,D,E,colorMenu){
 function onBotonFormas(){
     let C = [], D, E = [15, 20, 15], colorMenu = [];
     colorMenu = ["blue", "red", "green"];
-    C = [23, 33, 43];
-    D = 12;
+    //C = [23, 33, 43];
+    C = [CxyMenu.x-13, CxyMenu.x-3, CxyMenu.x+7];
+    D = CxyMenu.y-8;
     onBotonXY(C,D,E,colorMenu);
 }
 function onMenu2(){
@@ -1444,8 +1447,8 @@ function graficar() {
     }
     //Fin del primer Menú
     if (curvaSeleccionada) {
-        CxyMenu2={ x: Lienzo.width - 50, y: eje1_Y-AmplitudMax+22 };
-        CxyMenu3={ x: Lienzo.width - 50, y: eje2_Y-AmplitudMax+22 };
+        //CxyMenu2={ x: Lienzo.width - 50, y: eje1_Y-AmplitudMax+22 };
+        //CxyMenu3={ x: Lienzo.width - 50, y: eje2_Y-AmplitudMax+22 };
         onMenu2(); //dibuja el menú 2
         onMenu3(); //dibuja el menú 3
         if(pdetalles!=""){
