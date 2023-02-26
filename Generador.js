@@ -1549,8 +1549,8 @@ function graficar() {
         if (contador > 3) {
             switch (contador) {
                 case 4:
-                    A = TipX[j]+30;
-                    B=TipY[j]+30;
+                    A = CxyMenu.x+30;
+                    B=CxyMenu.y;
                     break;
                 case 5:
                     A = TipX[j] - C;
