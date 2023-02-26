@@ -72,7 +72,7 @@ const PosX1 = (4 * espaciado);
 
 var eje1_Y, eje2_Y;//ordenada=[];
 var Ancho;
-var over;
+var over=7;
 var InicioBarraHerramientas;
 var Margen;
 var CentroControl;
@@ -111,12 +111,11 @@ for (let i = 0; i < NoCurvas; i++) {
     parametro[NoDatos*i]=parametro[NoDatos*i]*FcToPixeles;
 }
 
-const LineaBase = 65;//*factorY
-const AnchoP = 25;//*factorY
+var LineaBase;// = 85;
+var AnchoP;// = 45;
 
-const FactorEscala = (LineaBase - AnchoP);
-var escala = [FactorEscala / AmplitudMax,
-PeriodoMax / FactorEscala, DesfaseMax / FactorEscala];
+var FactorEscala;// = (LineaBase - AnchoP);
+var escala;// = [FactorEscala / AmplitudMax, PeriodoMax / FactorEscala, DesfaseMax / FactorEscala];
 
 var CoefAmplitud=1;
 var RatonAbajo = false;
@@ -162,7 +161,7 @@ var PeriodoXY=[],PeriodoVal=[true,false,false];
     ctx.closePath();
 }*/
 
-function onRoundRectXY(ctx, x, y, width, height, radius, txt, fuenteTxt, sub,Nosubs,color1, color2,color3) {
+function onRoundRectXY(ctx, x, y, width, height, radius, color1, color2, txt, fuenteTxt, sub, color3) {
     ctx.strokeStyle = color1;
     ctx.fillStyle = color2;
     ctx.lineWidth = 2;
@@ -183,35 +182,19 @@ function onRoundRectXY(ctx, x, y, width, height, radius, txt, fuenteTxt, sub,Nos
         let centroY= y + height / 2;
         ctx.fillStyle = color3;
         ctx.font = fuenteTxt;
-        if(sub != 0 ){
-            
-            let iniX= centroX - ctx.measureText(txt).width/2;
-            let izquierda=txt.substring(0,sub);
-            ctx.textAlign = "left";
+        let iniX= centroX - ctx.measureText(txt).width/2;
+        ctx.textAlign = "left";
+        for(let i=0;i<txt.length;i++){
             ctx.textBaseline = "middle";
-            ctx.fillText(izquierda,iniX,centroY);
-            
-            iniX=iniX+pincel.measureText(izquierda).width;
-            let subindices= txt.substring(sub,sub+Nosubs);
-            ctx.textAlign = "left";
-            ctx.textBaseline = "top";
-            ctx.fillText(subindices,iniX,centroY);
-            
-            iniX=iniX+ctx.measureText(subindices).width;
-            let derecha=txt.substring(sub+Nosubs,txt.length);
-            ctx.textAlign = "left";
-            ctx.textBaseline = "middle";
-            ctx.fillText(derecha,iniX,centroY);
-
-        }
-        else{
-            ctx.textAlign = "center";
-            ctx.textBaseline = "middle";
-            ctx.fillText(txt, centroX,centroY);
-            
+            for(let j=0;j<sub.length;j++){
+                if(i==sub[j]){
+                    ctx.textBaseline = "top";
+                }
+            }
+            ctx.fillText(txt[i],iniX,centroY);
+            iniX=iniX+pincel.measureText(txt[i]).width;
         }
     }
-       
     ctx.stroke();
     ctx.closePath();
 }
@@ -227,8 +210,11 @@ function onRedimensionar() {
     let Coef=AmplitudMax / Am;
     CoefAmplitud *=Coef;
 
-    escala = [FactorEscala / AmplitudMax,
-    PeriodoMax / FactorEscala, DesfaseMax / FactorEscala];
+    LineaBase = 85*factorY;
+    AnchoP = 45*factorY;
+
+    FactorEscala = (LineaBase - AnchoP);
+    escala = [FactorEscala / AmplitudMax, PeriodoMax / FactorEscala, DesfaseMax / FactorEscala];
 
     for (let i = 0; i < NoCurvas; ++i) {
         parametro[NoDatos * i] = (parametro[NoDatos * i] * Coef);
@@ -238,8 +224,7 @@ function onRedimensionar() {
     eje1_Y = Lienzo.height / 3;
     eje2_Y = 2 * Lienzo.height / 3 + 75 * factorY;
 
-    //let xPos=0.07*Lienzo.width;
-    //PeriodoXY=[xPos-36,xPos-12,xPos+12,xPos+36];
+    
     PeriodoXY=[Lienzo.width/2-36,Lienzo.width/2-12,Lienzo.width/2+12,Lienzo.width/2+36];
 }
 
@@ -573,7 +558,7 @@ Lienzo.addEventListener("mousemove", function (evt) {
                                                 }
                                             }
                                             else {
-                                                if (onArea(Lienzo, evt, XRect[i], AnchoP / 2, over)) {
+                                                if (onArea(Lienzo, evt, XRect[i], AnchoP/2, over)) {
                                                     contador = 20 + i;
                                                     break;
                                                 }
@@ -678,10 +663,10 @@ function onBarraSuperior(Base) {
     let Anchor = XRect[NoCurvas - 1] + Ancho - InicioBarraHerramientas;
 
     pincel.lineWidth = 3;
-    pincel.beginPath();
+    //pincel.beginPath();
     onRoundRectXY(pincel, InicioBarraHerramientas, AnchoP,
-        Anchor, Base - AnchoP, 0, "", "",0,0,"black", "rgba(255,255,255,0.7)");
-    pincel.closePath();
+        Anchor, Base - AnchoP, 0, "black", "rgba(255,255,255,0.7)","");//, "","","");
+    //pincel.closePath();
 
     pincel.lineWidth = 1;
     for (let i = 0; i < NoCurvas; ++i) {
@@ -702,12 +687,12 @@ function onBarraSuperior(Base) {
             }
 
         }
-        onRoundRectXY(pincel, XRect[i] - 5, Base - 60, 10, 10, 0, "","",0,0, color1, color2);
-        onRoundRectXY(pincel, XRect[i] - Ancho / 2, DesY1[i], Ancho, Altura[i], 0, "", "",0,0,color3, color4);
+        onRoundRectXY(pincel, XRect[i] - 5, AnchoP/2-5,10, 10, 0, color1, color2,"");//,"","", "");
+        onRoundRectXY(pincel, XRect[i] - Ancho / 2, DesY1[i], Ancho, Altura[i], 0, color3, color4,"");//, "","","");
         pincel.closePath();
 
         if(vSJAmplitud){
-            onRoundRectXY(pincel,XRect[i]-0.6*Ancho/2,DesY1[i] -4,0.6*Ancho,8,3,"","",0,0,"black",color5);//"#FCF3CF");
+            onRoundRectXY(pincel,XRect[i]-0.6*Ancho/2,DesY1[i] -4,0.6*Ancho,8,3,"black",color5,"");//,"","","");//"#FCF3CF");
         }
         else{
             if(vSJPeriodo){
@@ -719,7 +704,7 @@ function onBarraSuperior(Base) {
                 pincel.closePath();
             }
             else{
-                onRoundRectXY(pincel,XRect[i]-0.6*Ancho/2,DesY1[i] -4,0.6*Ancho,8,3,"","",0,0,"black","#ABEBC6");
+                onRoundRectXY(pincel,XRect[i]-0.6*Ancho/2,DesY1[i] -4,0.6*Ancho,8,3,"black","#ABEBC6","");//,"","","");
                 pincel.beginPath();
                 pincel.fillStyle = color5;//"red";
                 pincel.arc(XRect[i], DesY1[i], over, 0, circunferencia);
@@ -972,7 +957,7 @@ function onMenuFormas(){
     var fuente = "bold 16px Serif";
     var AnchoMenu=150,AltoMenu=170;
             
-    onRoundRectXY(pincel,CxyMenu.x,CxyMenu.y+20,AnchoMenu,AltoMenu,3,"","",0,0,"lightgray","white");
+    onRoundRectXY(pincel,CxyMenu.x,CxyMenu.y+20,AnchoMenu,AltoMenu,3,"lightgray","white","");//,"","","");
     
     pincel.beginPath()
     pincel.font = fuente;
@@ -1046,7 +1031,7 @@ function onMenu2XY(){
     var fuente = "bold 16px Serif";
     var AnchoMenu=165,AltoMenu=215;
             
-    onRoundRectXY(pincel,CxyMenu2.x-AnchoMenu,CxyMenu2.y+20,AnchoMenu,AltoMenu,3,"","",0,0,"lightgray","white");
+    onRoundRectXY(pincel,CxyMenu2.x-AnchoMenu,CxyMenu2.y+20,AnchoMenu,AltoMenu,3,"lightgray","white","");//,"","","");
     pincel.beginPath()
     pincel.font = fuente;
     pincel.textAlign = "left";
@@ -1064,7 +1049,7 @@ function onMenu3XY(){
     var fuente = "bold 16px Serif";
     var AnchoMenu=180,AltoMenu=190;
             
-    onRoundRectXY(pincel,CxyMenu3.x-AnchoMenu,CxyMenu3.y+20,AnchoMenu,AltoMenu,3,"","",0,0,"lightgray","white");
+    onRoundRectXY(pincel,CxyMenu3.x-AnchoMenu,CxyMenu3.y+20,AnchoMenu,AltoMenu,3,"lightgray","white","");//,"","","");
     pincel.beginPath()
     pincel.font = fuente;
     pincel.textAlign = "left";
@@ -1446,9 +1431,9 @@ function graficar() {
     pincel.stroke();
     pincel.closePath();
     
-    onRoundRectXY(pincel,PosX2-20,eje2_Y+AmplitudMax+10,20,20,2,"+","bold 24px Serif",0,0,"gray",colorEscala2,"black");
-    onRoundRectXY(pincel,PosX2-50,eje2_Y+AmplitudMax+10,20,20,2,"-","bold 24px Serif",0,0,"gray",colorEscala1,"black");
-    onRoundRectXY(pincel,PosX2-80,eje2_Y+AmplitudMax+10,20,20,2,"r","bold 24px Serif",0,0,"gray",colorEscala3,"black");
+    onRoundRectXY(pincel,PosX2-20,eje2_Y+AmplitudMax+10,20,20,2,"gray",colorEscala2,"+","bold 24px Serif","","black");
+    onRoundRectXY(pincel,PosX2-50,eje2_Y+AmplitudMax+10,20,20,2,"gray",colorEscala1,"-","bold 24px Serif","","black");
+    onRoundRectXY(pincel,PosX2-80,eje2_Y+AmplitudMax+10,20,20,2,"gray",colorEscala3,"r","bold 24px Serif","","black");
 
     onBarraSuperior(LineaBase);
      
@@ -1486,7 +1471,7 @@ function graficar() {
                     let y=eje1_Y+AmplitudMax+7;
                     for(let i=0;i<4;i++){
                         if(PeriodoVal[i]){
-                            onRoundRectXY(pincel,PeriodoXY[i]-6,y,12,12,2,"","",0,0,"black","black");
+                            onRoundRectXY(pincel,PeriodoXY[i]-6,y,12,12,2,"black","black","");//,"","","black");
                             switch (i+1){
                                 case 1:
                                     onPeriodo1();
@@ -1503,7 +1488,7 @@ function graficar() {
                             }
                         }
                         else{
-                            onRoundRectXY(pincel,PeriodoXY[i]-6,y,12,12,2,"","",0,0,"gray","white");
+                            onRoundRectXY(pincel,PeriodoXY[i]-6,y,12,12,2,"gray","white","");//,"","","white");
                         }
                     }
                     break;
@@ -1555,9 +1540,8 @@ function graficar() {
         let C= pincel.measureText(texto[q]).width + 20;
         let A = TipX[j] - C/2;
         let fuenteM=fuente;
-        let subindice=0;
+        let subindice="";
         let colorFuente="white";
-        let Nosubs=1;
         
         if (contador > 3) {
             switch (contador) {
@@ -1598,7 +1582,7 @@ function graficar() {
                     q = contador - 7;
                     B = (LineaBase-DesY1[q])>0? LineaBase + 10:LineaBase-35;
                     A = XRect[q];
-                    Nosubs=(q+1)>9?2:1;
+                    subindice=(q+1)>9?"12":"1";
 
                     if (vSJAmplitud) {
                         Amp = q+1 + "=" +(2 * parametro[NoDatos * q] / AmplitudMax).toFixed(2);
@@ -1616,13 +1600,13 @@ function graficar() {
                             }
                         }
                     }
-                    subindice=texto[q].length;
+                    
                     C = pincel.measureText(texto[q]).width + pincel.measureText(Amp).width+20;
                     A -= C / 2;
                     break;
             }
         }
-        onRoundRectXY(pincel, A, B, C,AltoSeccion, 3, texto[q] + Amp,fuenteM,subindice, Nosubs, "blue", "blue",colorFuente);
+        onRoundRectXY(pincel, A, B, C,AltoSeccion, 3, "blue", "blue",texto[q] + Amp, fuenteM, subindice, colorFuente);
     }
 }
 
