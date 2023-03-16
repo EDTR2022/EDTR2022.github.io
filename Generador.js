@@ -111,6 +111,11 @@ for (let i = 0; i < NoCurvas; i++) {
     parametro[NoDatos*i]=parametro[NoDatos*i]*FcToPixeles;
 }
 
+const Titulo ="Envolvente de armónicos";
+var subTitulo ="Superposición de armónicos";
+var PreTitulo="";
+var NoCurvaSeleccionada=0;
+
 var LineaBase;// = 85;
 var AnchoP;// = 45;
 
@@ -134,33 +139,6 @@ var XRect = [], YRect = [];
 var DesY1 = [];
 var Altura = [];
 var PeriodoXY=[],PeriodoVal=[true,false,false];
-
-/*function onRoundRect(ctx, x, y, width, height, radius, txt, color1, color2) {
-    ctx.strokeStyle = color1;
-    ctx.fillStyle = color2;
-    ctx.lineWidth = 2;
-    ctx.beginPath();
-    ctx.moveTo(x, y + radius);
-    ctx.lineTo(x, y + height - radius);
-    ctx.quadraticCurveTo(x, y + height, x + radius, y + height);
-    ctx.lineTo(x + width - radius, y + height);
-    ctx.quadraticCurveTo(x + width, y + height, x + width, y + height - radius);
-    ctx.lineTo(x + width, y + radius);
-    ctx.quadraticCurveTo(x + width, y, x + width - radius, y);
-    ctx.lineTo(x + radius, y);
-    ctx.quadraticCurveTo(x, y, x, y + radius);
-    ctx.fill();
-
-    if (txt != "") {
-        ctx.fillStyle = "white";
-        ctx.font = fuente;
-        ctx.textAlign = "center";
-        ctx.textBaseline = "middle";
-        ctx.fillText(txt, x + width / 2, y + height / 2);
-    }
-    ctx.stroke();
-    ctx.closePath();
-}*/
 
 function onRoundRectXY(ctx, x, y, width, height, radius, color1, color2, txt, fuenteTxt, sub, color3) {
     ctx.strokeStyle = color1;
@@ -324,6 +302,7 @@ Lienzo.addEventListener("click", function () {
                 if(i==RmAj){
                     if (curvaClick[RmAj] = curvaClick[RmAj] ? false : true) {
                         curvaSeleccionada = true;
+                        NoCurvaSeleccionada=RmAj+1;
                         //break;
                     }
 
@@ -339,14 +318,18 @@ Lienzo.addEventListener("click", function () {
                 pMovimiento=false;
                 pFrecuencia=false;
                 pVelocidadA=false;
-                pVdC=[true,false,false]
+                pVdC=[true,false,false];
+                PreTitulo="";
+                subTitulo ="Superposición de armónicos";
                                
             }
             else{
                 //pMenuFormas=false;
                 pMovimiento=true;
                 incremento=0;
-                //pVdC=[false,true,true]; 
+                pVdC=[false,true,true];
+                PreTitulo="Curva No."+ NoCurvaSeleccionada; 
+                subTitulo ="Gráfico de velocidad y aceleración vs tiempo";
             }    
         }
         else {
@@ -423,27 +406,36 @@ Lienzo.addEventListener("click", function () {
                             incremento=0;
                             continuar=true;
                             pMenu3=false;
+                            PreTitulo="Curva No."+ NoCurvaSeleccionada; 
                             switch(contador-60){
                                 case 0:
                                     pVdC=[true,false,false];
+                                    
+                                    subTitulo ="Gráfico de posición vs tiempo";
                                     break;
                                 case 1:
                                     pVdC=[false,true,false];
+                                    subTitulo ="Gráfico de velocidad vs tiempo";
                                     break;
                                 case 2:
                                     pVdC=[false,false,true];
+                                    subTitulo ="Gráfico de aceleración vs tiempo";
                                     break;
                                 case 3:
                                     pVdC=[false,true,true];
+                                    subTitulo ="Gráfico de velocidad y aceleración vs tiempo";
                                     break;
                                 case 4:
                                     pVdC=[true,true,false];
+                                    subTitulo ="Gráfico de posición y velocidad vs tiempo";
                                     break;
                                 case 5:
                                     pVdC=[true,false,true];
+                                    subTitulo ="Gráfico de posición y aceleración vs tiempo";
                                     break;
                                 case 6:
                                     pVdC=[true,true,true];
+                                    subTitulo ="Gráfico de posición, velocidad y aceleración vs tiempo";
                                     break;
                             }
                         }
@@ -532,7 +524,7 @@ Lienzo.addEventListener("mousemove", function (evt) {
                                     }
                                     else{
                                         for (let i = 0; i < NoCurvas; ++i) {
-                                            if (onArea(Lienzo, evt, XRect[i], DesY1[i], 2*over)) {
+                                            if (onArea(Lienzo, evt, XRect[i], DesY1[i],2*over)) {
                                                 if (!curvaSeleccionada || curvaClick[i]) {
                                                     contador = 7 + i;
                                                     if (RatonAbajo) {
@@ -760,6 +752,7 @@ function fDibujarCurvas() {
     let xFinal=[PosX1,PosX1,PosX1],yFinal=[];
             
     let t,EdTr,PaAc,DdTa,SdTa,MdTa, colorCurva,profundidad=eje1_Y+AmplitudMax+10,txt;
+    let color=["indigo","#F39C12","#B22222"];
         
     for (let j = 0; j < NoCurvas; j++) {
         abscisa[j] = PosX1;
@@ -768,69 +761,70 @@ function fDibujarCurvas() {
     let A=(pMovimiento)?incremento:PosX2;
     for ( t = PosX1; t <= A; t += 3) {
         j = (t - PosX1) / fps;
-        JPdTa = 0;
-        PaAc=0;
-        EdTr=0;
+        JPdTa = 0;PaAc=0;EdTr=0;
         for (let q = 0; q < NoCurvas; q++) {
             pincel.beginPath();
             if (parametro[NoDatos * q] != 0 && parametro[NoDatos * q+1] != 0) {
                 frecuencia=1/parametro[NoDatos * q + 1];
                 angular = 2 * Math.PI*frecuencia;// / parametro[NoDatos * q + 1];
-                
-                if ((contador > 6 && contador <20)) {
-                    if (contador == q + 7 || pMenuFormas) {
+                                
+                let desfase=angular * j + parametro[NoDatos * q + 2] * conversion;
+                SdTa = (parametro[NoDatos * q] * Math.sin(desfase));
+                DdTa = (parametro[NoDatos * q] * angular * Math.cos(desfase));
+                MdTa = -(parametro[NoDatos * q] * Math.pow(angular,2) * Math.sin(desfase));
+                //JPdTa += SdTa;
+                //PaAc += DdTa;
+                //EdTr += MdTa;
+                let EPdjsm = (eje1_Y - SdTa);
+                pincel.moveTo(abscisa[q], ordenada[q]);
+                pincel.lineTo(t, EPdjsm);
+                //pincel.strokeStyle = colorCurva;
+                abscisa[q] = t;
+                ordenada[q] = EPdjsm;
+
+                colorCurva = parametro[NoDatos * q + 3];
+                if(curvaSeleccionada){
+                    if (curvaClick[q]) {
                         pincel.lineWidth = 3;
-                        colorCurva = parametro[NoDatos * q + 3];
+                        //colorCurva = parametro[NoDatos * q + 3];
+                        color[0]=colorCurva
+                        JPdTa = SdTa;
+                        PaAc = DdTa;
+                        EdTr = MdTa;
+                    }
+                    else {
+                        pincel.lineWidth = 0.5;
+                        //colorCurva = parametro[NoDatos * q + 3];
+                    }
+                }
+                else{
+                    pincel.lineWidth = 2;
+                    //colorCurva = parametro[NoDatos * q + 3];
+                    color[0]="indigo"
+                    JPdTa += SdTa;
+                    PaAc += DdTa;
+                    EdTr += MdTa;
+                }
+            
+                if ((contador > 6 && contador <20)) {
+                    if (contador == q + 7){//} || pMenuFormas) {
+                        pincel.lineWidth = 3;
+                        //colorCurva = parametro[NoDatos * q + 3];
                     }
                     else {
                         pincel.lineWidth = 0.7;
                         colorCurva = "silver";//parametro[NoDatos * q + 3];
                     }
                 }
-                else{
-                    if(curvaSeleccionada){
-                        if (curvaClick[q]) {
-                            pincel.lineWidth = 3;
-                            colorCurva = parametro[NoDatos * q + 3];
-                            /*let txt12="y"+(q+1)+"=A"+(q+1)+"sen(w"+(q+1)+"x+fi"+(q+1)+")";
-                            pincel.font = "bold 20px Serif";
-                            pincel.fillStyle = colorCurva;
-                            pincel.textAlign = "center";
-                            pincel.textBaseline = "middle";
-                            pincel.fillText(txt12, 0.10*Lienzo.width, eje1_Y-AmplitudMax-15);*/
-                            
-                        }
-                        else {
-                            pincel.lineWidth = 0.5;
-                            colorCurva = parametro[NoDatos * q + 3];
-                        }
-                    }
-                    else{
-                        pincel.lineWidth = 2;
-                        colorCurva = parametro[NoDatos * q + 3];
-                    }
-                }
-                
-                let desfase=angular * j + parametro[NoDatos * q + 2] * conversion;
-                SdTa = (parametro[NoDatos * q] * Math.sin(desfase));
-                DdTa = (parametro[NoDatos * q] * angular * Math.cos(desfase));
-                MdTa = -(parametro[NoDatos * q] * Math.pow(angular,2) * Math.sin(desfase));
-                JPdTa += SdTa;
-                PaAc += DdTa;
-                EdTr += MdTa;
-                SdTa = (eje1_Y - SdTa);
-                pincel.moveTo(abscisa[q], ordenada[q]);
-                pincel.lineTo(t, SdTa);
+            
                 pincel.strokeStyle = colorCurva;
-                abscisa[q] = t;
-                ordenada[q] = SdTa;
+                pincel.stroke();
+                pincel.closePath();
             }
-            pincel.stroke();
-            pincel.closePath();
         }
         
         let pVr=[Txycoeficiente*JPdTa,Txycoeficiente*PaAc,Txycoeficiente*EdTr];
-        let color=["#F39C12","indigo","#B22222"]
+        
         pincel.lineWidth = 3;
         for(let i=0;i<3;i++){
             pincel.beginPath();
@@ -839,6 +833,7 @@ function fDibujarCurvas() {
                 if(t==PosX1){
                     yFinal[i]=pVr[i];
                 }
+                
                 pincel.moveTo(xFinal[i], yFinal[i]);
                 pincel.lineTo(t, pVr[i]);
                 pincel.strokeStyle = color[i];
@@ -866,8 +861,6 @@ function fDibujarCurvas() {
         pincel.textAlign = "center";
         pincel.textBaseline = "middle";
         pincel.fillText(txt, Lienzo.width/2, profundidad);
-
-        //onRoundRectXY(pincel, A, B, C,AltoSeccion, 3, texto[q] + Amp,fuenteM,subindice, "blue", "blue",colorFuente);
     }
     
 }
@@ -1173,13 +1166,6 @@ function onElongacion(PosX){
                 pincel.fillText(txt, t, JPdTa+MdTa);
                 txt="t="+j.toFixed(1)+" s";
                 pincel.fillText(txt, t, eje1_Y-MdTa);
-                /*pincel.strokeStyle ="gray";
-                pincel.lineWidth = 0.5;
-                pincel.beginPath();
-                pincel.moveTo(t,JPdTa);
-                pincel.lineTo(PosX1,JPdTa);
-                pincel.stroke();
-                pincel.closePath();*/
             }
             
         }
@@ -1374,8 +1360,7 @@ function graficar() {
     over = (7 * factorX);//radio de los circulos y distancia entre ellos
     var PosX2 = Lienzo.width - PosX1;
     var fuente = "bold 14px Serif";
-    var txt1 ="Gráfico de Posición vs tiempo";
-    var txt2 ="Superposición de armónicos";
+    
 
     //Borra la lienzo
     pincel.clearRect(0, 0, Lienzo.width, Lienzo.height);
@@ -1388,8 +1373,9 @@ function graficar() {
     pincel.font = fuente;
     pincel.textAlign = "center";
     pincel.textBaseline = "middle";
-    pincel.fillText(txt1, Lienzo.width/2, eje1_Y-AmplitudMax-10);
-    pincel.fillText(txt2, Lienzo.width/2, eje2_Y-AmplitudMax-10);
+    pincel.fillText(Titulo, Lienzo.width/2, eje1_Y-AmplitudMax-10);
+    pincel.fillText(PreTitulo, Lienzo.width/2, eje2_Y-AmplitudMax-25);
+    pincel.fillText(subTitulo, Lienzo.width/2, eje2_Y-AmplitudMax-10);
 
     pincel.font = "bold 12px Serif";
     pincel.lineWidth = 0.5;
