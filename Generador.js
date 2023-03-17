@@ -97,6 +97,7 @@ var pdetalles="",pSobreXY=false,pMovimiento=false,pVdC=[true,false,false];
 var OpcionesPeriodo;
 
 var boton1 = true;
+var bRaton=true;
 var /*parametro = [1.5, 5, 0, "green", 0, 5, 0, "red", 0,5, 0, "blue", 0, 5, 0, "#D35400", 0, 5, 0, "chartreuse", 0, 5, 0, "darkmagenta", 0, 5, 0, "darkred",
                  0, 5, 0, "lightgreen", 0, 5, 0, "khaki", 0, 5, 0, "lightsalmon", 0, 5, 0, "magenta", 0, 5, 0, "orange"];*/
     parametro = [1.5, 5, 0, "green", -1.0, 5, 0, "red", 1.0,5, 0, "blue", 0, 5, 0, "#D35400", 0, 5, 0, "chartreuse", 0, 5, 0, "darkmagenta", 0, 5, 0, "darkred",
@@ -113,7 +114,7 @@ for (let i = 0; i < NoCurvas; i++) {
     parametro[NoDatos*i]=parametro[NoDatos*i]*FcToPixeles;
 }
 
-const Titulo ="Envolvente de armónicos";
+const Titulo ="Probando con el móvil";//"Envolvente de armónicos";
 var subTitulo ="Superposición de armónicos";
 var PreTitulo="";
 var NoCurvaSeleccionada=0;
@@ -608,15 +609,17 @@ function Movimiento(Lienzo,evt){
 
 Lienzo.addEventListener('touchstart', function(event){
     //Comprobamos si hay varios eventos del mismo tipo
+    bRaton=false;
     if (event.targetTouches.length == 1) { 
-    var touch = event.targetTouches[0]; 
+    //var touch = event.targetTouches[0]; 
     // con esto solo se procesa UN evento touch
-    Movimiento(Lienzo,touch);
+    Movimiento(Lienzo,event);
     //alert(" se ha producido un touchstart en las siguientes cordenas: X " + touch.pageX + " en Y " + touch.pageY);
     }
     
     }, false);    
 Lienzo.addEventListener("mousemove", function (evt) {
+    bRaton=true;
     //Movimiento(Lienzo,evt);
 }, false);
 
@@ -642,10 +645,19 @@ function onAreaXY(Lienzo, evt, Cx, Cy, espacioX,espacioY) {
 
 function oMousePos(pLienzo, evt) {
     var rect = pLienzo.getBoundingClientRect();
-    return { // devuelve un objeto
-        x: Math.round(evt.clientX - rect.left),
-        y: Math.round(evt.clientY - rect.top)
+    if(bRaton){
+        return { // devuelve un objeto
+            x: Math.round(evt.clientX - rect.left),
+            y: Math.round(evt.clientY - rect.top)
+        }
     }
+    else{
+        return { // devuelve un objeto
+            x: Math.round(evt.touches[0].clientX - rect.left),
+            y: Math.round(evt.touches[0].clientY - rect.top)
+        }
+    }
+    
 }
 function onBarraSuperior(Base) {
     for (let i = 0; i < NoCurvas; i++) {
