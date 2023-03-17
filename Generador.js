@@ -611,8 +611,8 @@ Lienzo.addEventListener('touchstart', function(event){
     if (event.targetTouches.length == 1) { 
     var touch = event.targetTouches[0]; 
     // con esto solo se procesa UN evento touch
-    //Movimiento(Lienzo,event);
-    alert(" se ha producido un touchstart en las siguientes cordenas: X " + touch.pageX + " en Y " + touch.pageY);
+    Movimiento(Lienzo,touch);
+    //alert(" se ha producido un touchstart en las siguientes cordenas: X " + touch.pageX + " en Y " + touch.pageY);
     }
     
     }, false);    
