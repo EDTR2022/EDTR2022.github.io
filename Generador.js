@@ -195,11 +195,11 @@ function onRedimensionar() {
 
     LineaBase = Lienzo.height/10.870588235;//85*factorY;
     AnchoP = Lienzo.height/20.5333;//45*factorY;
-    pLado=10*factorY;
+    pLado=15*factorY;
     over = (7 * factorX);
     
     FactorEscala = (LineaBase - AnchoP);
-    AltoP=FactorEscala/8;
+    AltoP=1;//pLado/2;//FactorEscala/8;
     escala = [FactorEscala / AmplitudMax, PeriodoMax / FactorEscala, DesfaseMax / FactorEscala];
 
     for (let i = 0; i < NoCurvas; ++i) {
