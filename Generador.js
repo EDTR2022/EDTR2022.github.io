@@ -97,8 +97,10 @@ var pdetalles="",pSobreXY=false,pMovimiento=false,pVdC=[true,false,false];
 var OpcionesPeriodo;
 
 var boton1 = true;
-var parametro = [1.5, 5, 0, "green", 0, 5, 0, "red", 0,5, 0, "blue", 0, 5, 0, "#D35400", 0, 5, 0, "chartreuse", 0, 5, 0, "darkmagenta", 0, 5, 0, "darkred",
-                 0, 5, 0, "lightgreen", 0, 5, 0, "khaki", 0, 5, 0, "lightsalmon", 0, 5, 0, "magenta", 0, 5, 0, "orange"];
+var /*parametro = [1.5, 5, 0, "green", 0, 5, 0, "red", 0,5, 0, "blue", 0, 5, 0, "#D35400", 0, 5, 0, "chartreuse", 0, 5, 0, "darkmagenta", 0, 5, 0, "darkred",
+                 0, 5, 0, "lightgreen", 0, 5, 0, "khaki", 0, 5, 0, "lightsalmon", 0, 5, 0, "magenta", 0, 5, 0, "orange"];*/
+    parametro = [1.5, 5, 0, "green", -1.0, 5, 0, "red", 1.0,5, 0, "blue", 0, 5, 0, "#D35400", 0, 5, 0, "chartreuse", 0, 5, 0, "darkmagenta", 0, 5, 0, "darkred",
+                0, 5, 0, "lightgreen", 0, 5, 0, "khaki", 0, 5, 0, "lightsalmon", 0, 5, 0, "magenta", 0, 5, 0, "orange"];
 var rParametro=[];
 var rNoCurvas;
 
@@ -118,6 +120,7 @@ var NoCurvaSeleccionada=0;
 
 var LineaBase;// = 85;
 var AnchoP;// = 45;
+var AltoP;
 
 var FactorEscala;// = (LineaBase - AnchoP);
 var escala;// = [FactorEscala / AmplitudMax, PeriodoMax / FactorEscala, DesfaseMax / FactorEscala];
@@ -191,8 +194,9 @@ function onRedimensionar() {
 
     LineaBase = 85*factorY;
     AnchoP = 45*factorY;
-
+    
     FactorEscala = (LineaBase - AnchoP);
+    AltoP=FactorEscala/8;
     escala = [FactorEscala / AmplitudMax, PeriodoMax / FactorEscala, DesfaseMax / FactorEscala];
 
     for (let i = 0; i < NoCurvas; ++i) {
@@ -524,7 +528,7 @@ Lienzo.addEventListener("mousemove", function (evt) {
                                     }
                                     else{
                                         for (let i = 0; i < NoCurvas; ++i) {
-                                            if (onArea(Lienzo, evt, XRect[i], DesY1[i],2*over)) {
+                                            if (onArea(Lienzo, evt, XRect[i], DesY1[i],3*over)) {
                                                 if (!curvaSeleccionada || curvaClick[i]) {
                                                     contador = 7 + i;
                                                     if (RatonAbajo) {
@@ -552,7 +556,7 @@ Lienzo.addEventListener("mousemove", function (evt) {
                                                 }
                                             }
                                             else {
-                                                if (onArea(Lienzo, evt, XRect[i], AnchoP/2, over)) {
+                                                if (onArea(Lienzo, evt, XRect[i], AltoP+5, over)) {
                                                     contador = 20 + i;
                                                     break;
                                                 }
@@ -681,7 +685,7 @@ function onBarraSuperior(Base) {
             }
 
         }
-        onRoundRectXY(pincel, XRect[i] - 5, AnchoP/2-5,10, 10, 0, color1, color2,"");//,"","", "");
+        onRoundRectXY(pincel, XRect[i] - 5, AltoP,10, 10, 0, color1, color2,"");
         onRoundRectXY(pincel, XRect[i] - Ancho / 2, DesY1[i], Ancho, Altura[i], 0, color3, color4,"");//, "","","");
         pincel.closePath();
 
