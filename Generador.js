@@ -470,7 +470,7 @@ Lienzo.addEventListener("click", function () {
     }
 }, false);
 
-Lienzo.addEventListener("mousemove", function (evt) {
+function Movimiento(Lienzo,evt){
     contador = 0;
     if (onArea(Lienzo, evt, CxyDesplazamiento.x, CxyDesplazamiento.y, seccion / 2)) {
         contador = 1;
@@ -603,6 +603,21 @@ Lienzo.addEventListener("mousemove", function (evt) {
         }
     }
     Lienzo.style.cursor = contador > 0? "pointer":"default";
+
+}
+
+Lienzo.addEventListener('touchstart', function(event){
+    //Comprobamos si hay varios eventos del mismo tipo
+    if (event.targetTouches.length == 1) { 
+    var touch = event.targetTouches[0]; 
+    // con esto solo se procesa UN evento touch
+    //Movimiento(Lienzo,event);
+    alert(" se ha producido un touchstart en las siguientes cordenas: X " + touch.pageX + " en Y " + touch.pageY);
+    }
+    
+    }, false);    
+Lienzo.addEventListener("mousemove", function (evt) {
+    Movimiento(Lienzo,evt);
 }, false);
 
 Lienzo.addEventListener("mouseout", function (evt) {
