@@ -617,7 +617,7 @@ Lienzo.addEventListener('touchstart', function(event){
     
     }, false);    
 Lienzo.addEventListener("mousemove", function (evt) {
-    Movimiento(Lienzo,evt);
+    //Movimiento(Lienzo,evt);
 }, false);
 
 Lienzo.addEventListener("mouseout", function (evt) {
