@@ -121,6 +121,7 @@ var NoCurvaSeleccionada=0;
 var LineaBase;// = 85;
 var AnchoP;// = 45;
 var AltoP;
+var pLado;
 
 var FactorEscala;// = (LineaBase - AnchoP);
 var escala;// = [FactorEscala / AmplitudMax, PeriodoMax / FactorEscala, DesfaseMax / FactorEscala];
@@ -183,7 +184,7 @@ function onRoundRectXY(ctx, x, y, width, height, radius, color1, color2, txt, fu
 function onRedimensionar() {
     Lienzo.width = (0.95 * window.innerWidth);
     Lienzo.height = (0.95 * window.innerHeight);
-
+    
     factorX = Lienzo.width / anchoLienzoInicial;
     factorY = Lienzo.height / alturaLienzoInicial;
 
@@ -192,8 +193,10 @@ function onRedimensionar() {
     let Coef=AmplitudMax / Am;
     CoefAmplitud *=Coef;
 
-    LineaBase = 85*factorY;
-    AnchoP = 45*factorY;
+    LineaBase = Lienzo.height/10.870588235;//85*factorY;
+    AnchoP = Lienzo.height/20.5333;//45*factorY;
+    pLado=10*factorY;
+    over = (7 * factorX);
     
     FactorEscala = (LineaBase - AnchoP);
     AltoP=FactorEscala/8;
@@ -556,7 +559,7 @@ Lienzo.addEventListener("mousemove", function (evt) {
                                                 }
                                             }
                                             else {
-                                                if (onArea(Lienzo, evt, XRect[i], AltoP+5, over)) {
+                                                if (onArea(Lienzo, evt, XRect[i], AltoP+pLado/2, over)) {
                                                     contador = 20 + i;
                                                     break;
                                                 }
@@ -685,7 +688,8 @@ function onBarraSuperior(Base) {
             }
 
         }
-        onRoundRectXY(pincel, XRect[i] - 5, AltoP,10, 10, 0, color1, color2,"");
+        //let pLado=10*factorY;
+        onRoundRectXY(pincel, XRect[i] - pLado/2, AltoP,pLado, pLado, 0, color1, color2,"");
         onRoundRectXY(pincel, XRect[i] - Ancho / 2, DesY1[i], Ancho, Altura[i], 0, color3, color4,"");//, "","","");
         pincel.closePath();
 
@@ -1361,7 +1365,7 @@ function onPeriodo4(){
     }
 }
 function graficar() {
-    over = (7 * factorX);//radio de los circulos y distancia entre ellos
+    //over = (7 * factorX);//radio de los circulos y distancia entre ellos
     var PosX2 = Lienzo.width - PosX1;
     var fuente = "bold 14px Serif";
     
