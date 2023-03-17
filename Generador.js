@@ -559,7 +559,7 @@ Lienzo.addEventListener("mousemove", function (evt) {
                                                 }
                                             }
                                             else {
-                                                if (onArea(Lienzo, evt, XRect[i], AltoP+pLado/2, over)) {
+                                                if (onArea(Lienzo, evt, XRect[i], AltoP+pLado/2, 3*over)) {
                                                     contador = 20 + i;
                                                     break;
                                                 }
