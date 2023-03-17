@@ -193,8 +193,8 @@ function onRedimensionar() {
     let Coef=AmplitudMax / Am;
     CoefAmplitud *=Coef;
 
-    LineaBase = Lienzo.height/10.870588235;//85*factorY;
-    AnchoP = Lienzo.height/20.5333;//45*factorY;
+    LineaBase = 95*factorY;//Lienzo.height/10.870588235;//
+    AnchoP = 55*factorY;//Lienzo.height/20.5333;//
     pLado=15*factorY;
     over = (7 * factorX);
     
