@@ -114,7 +114,7 @@ for (let i = 0; i < NoCurvas; i++) {
     parametro[NoDatos*i]=parametro[NoDatos*i]*FcToPixeles;
 }
 
-const Titulo ="Probando con el cel";//"Envolvente de armónicos";
+const Titulo ="Envolvente de armónicos";
 var subTitulo ="Superposición de armónicos";
 var PreTitulo="";
 var NoCurvaSeleccionada=0;
