@@ -114,7 +114,7 @@ for (let i = 0; i < NoCurvas; i++) {
     parametro[NoDatos*i]=parametro[NoDatos*i]*FcToPixeles;
 }
 
-const Titulo ="Probando con el móvil";//"Envolvente de armónicos";
+const Titulo ="Probando con el cel";//"Envolvente de armónicos";
 var subTitulo ="Superposición de armónicos";
 var PreTitulo="";
 var NoCurvaSeleccionada=0;
@@ -613,7 +613,7 @@ Lienzo.addEventListener('touchstart', function(event){
     if (event.targetTouches.length == 1) { 
     //var touch = event.targetTouches[0]; 
     // con esto solo se procesa UN evento touch
-    Movimiento(Lienzo,event);
+    //Movimiento(Lienzo,event);
     //alert(" se ha producido un touchstart en las siguientes cordenas: X " + touch.pageX + " en Y " + touch.pageY);
     }
     
