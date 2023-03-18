@@ -535,7 +535,7 @@ function Movimiento(Lienzo,evt){
                                             if (onArea(Lienzo, evt, XRect[i], DesY1[i],3*over)) {
                                                 if (!curvaSeleccionada || curvaClick[i]) {
                                                     contador = 7 + i;
-                                                    if (RatonAbajo) {
+                                                    if (RatonAbajo || !bRaton) {
                                                         Altura[i] = LineaBase - CxyRaton.y;//reducido y sin escalar
                                                         if (vSJAmplitud) {
                                                             Altura[i] = Altura[i] <= -FactorEscala ? -FactorEscala : (Altura[i] > FactorEscala ? FactorEscala : Altura[i]);
@@ -627,7 +627,7 @@ Lienzo.addEventListener('touchmove', function(event){
 
 Lienzo.addEventListener("mousemove", function (evt) {
     bRaton=true;
-    //Movimiento(Lienzo,evt);
+    Movimiento(Lienzo,evt);
 }, false);
 
 Lienzo.addEventListener("mouseout", function (evt) {
