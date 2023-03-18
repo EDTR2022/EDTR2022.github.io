@@ -532,7 +532,9 @@ function Movimiento(Lienzo,evt){
                                     }
                                     else{
                                         for (let i = 0; i < NoCurvas; ++i) {
-                                            if (onArea(Lienzo, evt, XRect[i], DesY1[i],3*over)) {
+                                            //if (onArea(Lienzo, evt, XRect[i], DesY1[i],3*over)) {
+                                                let ancho=60*factorX;
+                                            if (onAreaXY(Lienzo, evt, XRect[i], LineaBase,ancho/2,FactorEscala)) {
                                                 if (!curvaSeleccionada || curvaClick[i]) {
                                                     contador = 7 + i;
                                                     if (RatonAbajo || !bRaton) {
@@ -684,7 +686,7 @@ function onBarraSuperior(Base) {
         }
     }
 
-    Ancho = (60 * factorX);
+    let Ancho = (60 * factorX);
     Margen = Ancho / 2;//(50*factorX);
     CentroControl = ((NoCurvas * Ancho + (NoCurvas - 1) * Margen) / 2);
     AnchoGrafico = (Lienzo.width / 2);
