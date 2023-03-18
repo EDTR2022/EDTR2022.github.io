@@ -501,7 +501,7 @@ function Movimiento(Lienzo,evt){
                                 let A=CxyMenu.x+10;
                                 let B=CxyMenu.y+40;
                                 for(let i=0;i<formas.length;++i){
-                                    if(onAreaXY(Lienzo,evt,A+pincel.measureText(formas[i]).width/2,B+25*i,pincel.measureText(formas[i]).width/2,7)){
+                                    if(onAreaXY(Lienzo,evt,A+pincel.measureText(formas[i]).width/2,B+25*i,pincel.measureText(formas[i]).width/2,12)){
                                         contador=32+i;
                                         break;
                                     }
@@ -513,7 +513,7 @@ function Movimiento(Lienzo,evt){
                                     let A=CxyMenu2.x-140;
                                     let B=CxyMenu2.y+40;
                                     for(let i=0;i<detalles.length;++i){
-                                        if(onAreaXY(Lienzo,evt,A+pincel.measureText(detalles[i]).width/2,B+25*i,pincel.measureText(detalles[i]).width/2,7)){
+                                        if(onAreaXY(Lienzo,evt,A+pincel.measureText(detalles[i]).width/2,B+25*i,pincel.measureText(detalles[i]).width/2,12)){
                                             contador=40+i;
                                             break;
                                         }
@@ -524,7 +524,7 @@ function Movimiento(Lienzo,evt){
                                         let A=CxyMenu3.x-140;
                                         let B=CxyMenu3.y+40;
                                         for(let i=0;i<Resultante.length;++i){
-                                            if(onAreaXY(Lienzo,evt,A+pincel.measureText(Resultante[i]).width/2,B+25*i,pincel.measureText(Resultante[i]).width/2,7)){
+                                            if(onAreaXY(Lienzo,evt,A+pincel.measureText(Resultante[i]).width/2,B+25*i,pincel.measureText(Resultante[i]).width/2,12)){
                                                 contador=60+i;
                                                 break;
                                             }
@@ -583,17 +583,17 @@ function Movimiento(Lienzo,evt){
                                     }
                                     //else{
                                     let PosX2 = Lienzo.width - PosX1;
-                                    if(onArea(Lienzo,evt,PosX2-60,eje2_Y+AmplitudMax+20,10+over)){
+                                    if(onArea(Lienzo,evt,PosX2-60,eje2_Y+AmplitudMax+20,20)){
                                         //decrementar
                                         contador=70;
                                     }
                                     else{
-                                        if(onArea(Lienzo,evt,PosX2-20,eje2_Y+AmplitudMax+20,10+over)){
+                                        if(onArea(Lienzo,evt,PosX2-20,eje2_Y+AmplitudMax+20,20)){
                                             //incrementar
                                             contador=71;
                                         }
                                         else{
-                                            if(onArea(Lienzo,evt,PosX2-100,eje2_Y+AmplitudMax+20,10+over)){
+                                            if(onArea(Lienzo,evt,PosX2-100,eje2_Y+AmplitudMax+20,20)){
                                                 //reinicializar
                                                 contador=72;
                                             }
@@ -1079,12 +1079,15 @@ function onMenu2XY(){
     pincel.font = fuente;
     pincel.textAlign = "left";
     pincel.textBaseline = "middle";
+    let x=CxyMenu2.x-AnchoMenu+10;
+    let y=CxyMenu2.y+40;
     for(let i=0;i<detalles.length;i++){
         pincel.fillStyle = "gray";
         if(i==contador-40){
             pincel.fillStyle ="black";
         }
-        pincel.fillText(detalles[i], CxyMenu2.x-AnchoMenu+10, CxyMenu2.y+40+25*i);
+        pincel.fillText(detalles[i], x,y+25*i);
+            //CxyMenu2.x-AnchoMenu+10, CxyMenu2.y+40+25*i);
     }
     pincel.closePath();
 }
