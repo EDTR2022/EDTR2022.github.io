@@ -473,27 +473,27 @@ Lienzo.addEventListener("click", function () {
 
 function Movimiento(Lienzo,evt){
     contador = 0;
-    if (onArea(Lienzo, evt, CxyDesplazamiento.x, CxyDesplazamiento.y, seccion / 2)) {
+    if (onArea(Lienzo, evt, CxyDesplazamiento.x, CxyDesplazamiento.y, seccion / 2+over)) {
         contador = 1;
     }
     else {
-        if (onArea(Lienzo, evt, CxyVelocidad.x, CxyVelocidad.y, seccion / 2)) {
+        if (onArea(Lienzo, evt, CxyVelocidad.x, CxyVelocidad.y, seccion / 2+over)) {
             contador = 2;
         }
         else {
-            if (onArea(Lienzo, evt, CxyAceleracion.x, CxyAceleracion.y, seccion / 2)) {
+            if (onArea(Lienzo, evt, CxyAceleracion.x, CxyAceleracion.y, seccion / 2+over)) {
                 contador = 3;
             }
             else {
-                if (onArea(Lienzo, evt, CxyMenu.x, CxyMenu.y, 3*over)){;// && !curvaSeleccionada) {
+                if (onArea(Lienzo, evt, CxyMenu.x, CxyMenu.y, (13+over))){
                     contador=(pMenu2 || pMenu3)?0:4;
                 }
                 else {
-                    if (onArea(Lienzo, evt, CxyMenu2.x, CxyMenu2.y, 3 * over)) {
+                    if (onArea(Lienzo, evt, CxyMenu2.x, CxyMenu2.y, (13+ over))) {
                         contador=(pMenu3)?0:5;
                     }
                     else {
-                        if (onArea(Lienzo, evt, CxyMenu3.x, CxyMenu3.y, 3 * over)) {
+                        if (onArea(Lienzo, evt, CxyMenu3.x, CxyMenu3.y, (13 + over))) {
                             contador=(pMenu2)?0:6;
                         }
                         else {
@@ -533,8 +533,8 @@ function Movimiento(Lienzo,evt){
                                     else{
                                         for (let i = 0; i < NoCurvas; ++i) {
                                             //if (onArea(Lienzo, evt, XRect[i], DesY1[i],3*over)) {
-                                                let ancho=60*factorX;
-                                            if (onAreaXY(Lienzo, evt, XRect[i], LineaBase,ancho/2,FactorEscala)) {
+                                            let ancho=60*factorX;
+                                            if (onAreaXY(Lienzo, evt, XRect[i], LineaBase,ancho/2+over,FactorEscala+over)) {
                                                 if (!curvaSeleccionada || curvaClick[i]) {
                                                     contador = 7 + i;
                                                     if (RatonAbajo || !bRaton) {
@@ -562,7 +562,7 @@ function Movimiento(Lienzo,evt){
                                                 }
                                             }
                                             else {
-                                                if (onArea(Lienzo, evt, XRect[i], AltoP+pLado/2, 3*over)) {
+                                                if (onArea(Lienzo, evt, XRect[i], AltoP+pLado/2, pLado/2+3*over)) {
                                                     contador = 20 + i;
                                                     break;
                                                 }
