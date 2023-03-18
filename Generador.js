@@ -562,7 +562,7 @@ function Movimiento(Lienzo,evt){
                                                 }
                                             }
                                             else {
-                                                if (onArea(Lienzo, evt, XRect[i], AltoP+pLado/2, pLado/2+3*over)) {
+                                                if (onArea(Lienzo, evt, XRect[i], AltoP+pLado/2, (pLado/2+3*over))) {
                                                     contador = 20 + i;
                                                     break;
                                                 }
@@ -583,15 +583,18 @@ function Movimiento(Lienzo,evt){
                                     }
                                     //else{
                                     let PosX2 = Lienzo.width - PosX1;
-                                    if(onArea(Lienzo,evt,PosX2-40,eje2_Y+AmplitudMax+20,over)){
+                                    if(onArea(Lienzo,evt,PosX2-60,eje2_Y+AmplitudMax+20,10+over)){
+                                        //decrementar
                                         contador=70;
                                     }
                                     else{
-                                        if(onArea(Lienzo,evt,PosX2-10,eje2_Y+AmplitudMax+20,over)){
+                                        if(onArea(Lienzo,evt,PosX2-20,eje2_Y+AmplitudMax+20,10+over)){
+                                            //incrementar
                                             contador=71;
                                         }
                                         else{
-                                            if(onArea(Lienzo,evt,PosX2-70,eje2_Y+AmplitudMax+20,over)){
+                                            if(onArea(Lienzo,evt,PosX2-100,eje2_Y+AmplitudMax+20,10+over)){
+                                                //reinicializar
                                                 contador=72;
                                             }
                                         }
@@ -1464,9 +1467,9 @@ function graficar() {
     pincel.stroke();
     pincel.closePath();
     
-    onRoundRectXY(pincel,PosX2-20,eje2_Y+AmplitudMax+10,20,20,2,"gray",colorEscala2,"+","bold 24px Serif","","black");
-    onRoundRectXY(pincel,PosX2-50,eje2_Y+AmplitudMax+10,20,20,2,"gray",colorEscala1,"-","bold 24px Serif","","black");
-    onRoundRectXY(pincel,PosX2-80,eje2_Y+AmplitudMax+10,20,20,2,"gray",colorEscala3,"r","bold 24px Serif","","black");
+    onRoundRectXY(pincel,PosX2-30,eje2_Y+AmplitudMax+10,20,20,2,"gray",colorEscala2,"+","bold 24px Serif","","black");
+    onRoundRectXY(pincel,PosX2-70,eje2_Y+AmplitudMax+10,20,20,2,"gray",colorEscala1,"-","bold 24px Serif","","black");
+    onRoundRectXY(pincel,PosX2-110,eje2_Y+AmplitudMax+10,20,20,2,"gray",colorEscala3,"r","bold 24px Serif","","black");
 
     onBarraSuperior(LineaBase);
      
