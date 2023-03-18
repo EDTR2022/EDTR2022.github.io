@@ -213,7 +213,6 @@ function onRedimensionar() {
     CxyMenu2={ x: Lienzo.width - 50, y: eje1_Y-AmplitudMax+22 };
     CxyMenu3={ x: Lienzo.width - 50, y: eje2_Y-AmplitudMax+22 };
     
-    PeriodoXY=[Lienzo.width/2-36,Lienzo.width/2-12,Lienzo.width/2+12,Lienzo.width/2+36];
 }
 
 window.addEventListener("resize", onRedimensionar);
@@ -575,7 +574,7 @@ function Movimiento(Lienzo,evt){
                                         let y=eje1_Y+AmplitudMax+13;
                                         for(let i=0;i<4;i++){
                                             if(!PeriodoVal[i]){
-                                                if (onArea(Lienzo, evt, PeriodoXY[i],y , over)){
+                                                if (onArea(Lienzo, evt, PeriodoXY[i],y , 20)){
                                                     contador=50+i;
                                                 }
                                             }
@@ -1507,10 +1506,19 @@ function graficar() {
                     onMaximosMinimos();
                     break;
                 case "pPeriodo":
-                    let y=eje1_Y+AmplitudMax+7;
+                    let y1=eje1_Y+AmplitudMax+7;
+                    let y=12;
+                    let x=28;
+                    let A= (Lienzo.width-PosX1)-(4*y+3*x);
+                    let a1=A;
+                    let a2= a1+y+x;
+                    let a3=a2+y+x;
+                    let a4=a3+y+x;
+                    PeriodoXY=[a1,a2,a3,a4];
+    
                     for(let i=0;i<4;i++){
                         if(PeriodoVal[i]){
-                            onRoundRectXY(pincel,PeriodoXY[i]-6,y,12,12,2,"black","black","");//,"","","black");
+                            onRoundRectXY(pincel,PeriodoXY[i]-6,y1,12,12,2,"black","black","");//,"","","black");
                             switch (i+1){
                                 case 1:
                                     onPeriodo1();
@@ -1527,7 +1535,7 @@ function graficar() {
                             }
                         }
                         else{
-                            onRoundRectXY(pincel,PeriodoXY[i]-6,y,12,12,2,"gray","white","");//,"","","white");
+                            onRoundRectXY(pincel,PeriodoXY[i]-6,y1,12,12,2,"gray","white","");//,"","","white");
                         }
                     }
                     break;
