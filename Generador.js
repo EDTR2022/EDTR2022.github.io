@@ -613,11 +613,18 @@ Lienzo.addEventListener('touchstart', function(event){
     if (event.targetTouches.length == 1) { 
     //var touch = event.targetTouches[0]; 
     // con esto solo se procesa UN evento touch
-    //Movimiento(Lienzo,event);
+    Movimiento(Lienzo,event);
     //alert(" se ha producido un touchstart en las siguientes cordenas: X " + touch.pageX + " en Y " + touch.pageY);
     }
     
     }, false);    
+Lienzo.addEventListener('touchmove', function(event){
+        //Comprobamos si hay varios eventos del mismo tipo
+        bRaton=false;
+        Movimiento(Lienzo,event);
+        
+        }, false);
+
 Lienzo.addEventListener("mousemove", function (evt) {
     bRaton=true;
     //Movimiento(Lienzo,evt);
