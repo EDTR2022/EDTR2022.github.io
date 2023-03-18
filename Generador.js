@@ -1469,9 +1469,10 @@ function graficar() {
     pincel.stroke();
     pincel.closePath();
     
-    onRoundRectXY(pincel,PosX2-30,eje2_Y+AmplitudMax+10,20,20,2,"gray",colorEscala2,"+","bold 24px Serif","","black");
-    onRoundRectXY(pincel,PosX2-70,eje2_Y+AmplitudMax+10,20,20,2,"gray",colorEscala1,"-","bold 24px Serif","","black");
-    onRoundRectXY(pincel,PosX2-110,eje2_Y+AmplitudMax+10,20,20,2,"gray",colorEscala3,"r","bold 24px Serif","","black");
+    let aPx=20;
+    onRoundRectXY(pincel,PosX2-30,eje2_Y+AmplitudMax+10,aPx,aPx,2,"gray",colorEscala2,"+","bold 20px Serif","","black");
+    onRoundRectXY(pincel,PosX2-70,eje2_Y+AmplitudMax+10,aPx,aPx,2,"gray",colorEscala1,"-","bold 20px Serif","","black");
+    onRoundRectXY(pincel,PosX2-110,eje2_Y+AmplitudMax+10,aPx,aPx,2,"gray",colorEscala3,"r","bold 20px Serif","","black");
 
     onBarraSuperior(LineaBase);
      
