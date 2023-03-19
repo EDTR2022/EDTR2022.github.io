@@ -497,11 +497,11 @@ function Movimiento(Lienzo,evt){
                         }
                         else {
                             if(pMenuFormas){
-                                let jG=30;
+                                let jG=26;
                                 let A=CxyMenu.x+10;
                                 let B=CxyMenu.y+20+jG/2;
                                 for(let i=0;i<formas.length;++i){
-                                    if(onAreaXY(Lienzo,evt,A+pincel.measureText(formas[i]).width/2,B+jG*i,pincel.measureText(formas[i]).width/2,15)){
+                                    if(onAreaXY(Lienzo,evt,A+pincel.measureText(formas[i]).width/2,B+jG*i,pincel.measureText(formas[i]).width/2,jG/2)){
                                         contador=32+i;
                                         break;
                                     }
@@ -999,19 +999,21 @@ function onMenuFormas(){
     var fuente = "bold 16px Serif";
     var AnchoMenu=150//AltoMenu=170;
 
-    let jG=30;
+    let jG=26;
     AltoMenu=jG*(formas.length);
-    //console.log(AltoMenu,formas.length)
-    for(let i=0;i<formas.length;i++){
         
-    }
-            
-    onRoundRectXY(pincel,CxyMenu.x,CxyMenu.y+20,AnchoMenu,AltoMenu,3,"lightgray","white","");//,"","","");
-    
     pincel.beginPath()
     pincel.font = fuente;
     pincel.textAlign = "left";
     pincel.textBaseline = "middle";
+    
+    AnchoMenu= pincel.measureText(formas[0]).width;
+    for(let i=1;i<formas.length;i++){
+        AnchoMenu=AnchoMenu<pincel.measureText(formas[i]).width?pincel.measureText(formas[i]).width:AnchoMenu;
+    }
+    AnchoMenu=AnchoMenu+20;
+    onRoundRectXY(pincel,CxyMenu.x,CxyMenu.y+20,AnchoMenu,AltoMenu,3,"lightgray","white","");//,"","","");
+
     let x=CxyMenu.x+10;
     let y=CxyMenu.y+20+jG/2;
     for(let i=0;i<formas.length;i++){
@@ -1081,42 +1083,59 @@ function onMenu3(){
 }
 function onMenu2XY(){
     var fuente = "bold 16px Serif";
-    var AnchoMenu=165,AltoMenu=215;
-            
-    onRoundRectXY(pincel,CxyMenu2.x-AnchoMenu,CxyMenu2.y+20,AnchoMenu,AltoMenu,3,"lightgray","white","");//,"","","");
+    var AnchoMenu,AltoMenu;
+        
     pincel.beginPath()
     pincel.font = fuente;
     pincel.textAlign = "left";
     pincel.textBaseline = "middle";
+
+    let jG=26;
+    AltoMenu=jG*(detalles.length);
+    AnchoMenu= pincel.measureText(detalles[0]).width;
+    for(let i=1;i<detalles.length;i++){
+        AnchoMenu=AnchoMenu<pincel.measureText(detalles[i]).width?pincel.measureText(detalles[i]).width:AnchoMenu;
+    }
+    AnchoMenu=AnchoMenu+20;
+    onRoundRectXY(pincel,CxyMenu2.x-AnchoMenu,CxyMenu2.y+20,AnchoMenu,AltoMenu,3,"lightgray","white","");//,"","","");
+    
     let x=CxyMenu2.x-AnchoMenu+10;
-    let y=CxyMenu2.y+40;
+    let y=CxyMenu2.y+20+jG/2;
     for(let i=0;i<detalles.length;i++){
         pincel.fillStyle = "gray";
         if(i==contador-40){
             pincel.fillStyle ="black";
         }
-        pincel.fillText(detalles[i], x,y+25*i);
+        pincel.fillText(detalles[i], x,y+jG*i);
             //CxyMenu2.x-AnchoMenu+10, CxyMenu2.y+40+25*i);
     }
     pincel.closePath();
 }
 function onMenu3XY(){
     var fuente = "bold 16px Serif";
-    var AnchoMenu=180,AltoMenu=190;
+    var AnchoMenu,AltoMenu;
             
-    onRoundRectXY(pincel,CxyMenu3.x-AnchoMenu,CxyMenu3.y+20,AnchoMenu,AltoMenu,3,"lightgray","white","");//,"","","");
     pincel.beginPath()
     pincel.font = fuente;
     pincel.textAlign = "left";
     pincel.textBaseline = "middle";
+
+    let jG=26;
+    AltoMenu=jG*(Resultante.length);
+    AnchoMenu= pincel.measureText(Resultante[0]).width;
+    for(let i=1;i<Resultante.length;i++){
+        AnchoMenu=AnchoMenu<pincel.measureText(Resultante[i]).width?pincel.measureText(Resultante[i]).width:AnchoMenu;
+    }
+    AnchoMenu=AnchoMenu+20;
+    onRoundRectXY(pincel,CxyMenu3.x-AnchoMenu,CxyMenu3.y+20,AnchoMenu,AltoMenu,3,"lightgray","white","");//,"","","");
     let x=CxyMenu3.x-AnchoMenu+10;
-    let y=CxyMenu3.y+40;
+    let y=CxyMenu3.y+20+jG/2;
     for(let i=0;i<Resultante.length;i++){
         pincel.fillStyle = "gray";
         if(i==contador-60){
             pincel.fillStyle ="black";
         }
-        pincel.fillText(Resultante[i], x, y+25*i);
+        pincel.fillText(Resultante[i], x, y+jG*i);
     }
     pincel.closePath();
 }
