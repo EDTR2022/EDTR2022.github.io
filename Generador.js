@@ -533,7 +533,7 @@ function Movimiento(Lienzo,evt){
                                         for (let i = 0; i < NoCurvas; ++i) {
                                             //if (onArea(Lienzo, evt, XRect[i], DesY1[i],3*over)) {
                                             let ancho=60*factorX;
-                                            if (onAreaXY(Lienzo, evt, XRect[i], LineaBase,ancho/2+over,FactorEscala+over)) {
+                                            if (onAreaXY(Lienzo, evt, XRect[i], LineaBase,ancho,FactorEscala)) {
                                                 if (!curvaSeleccionada || curvaClick[i]) {
                                                     contador = 7 + i;
                                                     if (RatonAbajo || !bRaton) {
@@ -582,17 +582,17 @@ function Movimiento(Lienzo,evt){
                                     }
                                     //else{
                                     let PosX2 = Lienzo.width - PosX1;
-                                    if(onArea(Lienzo,evt,PosX2-60,eje2_Y+AmplitudMax+20,20)){
+                                    if(onArea(Lienzo,evt,PosX2-75,eje2_Y+AmplitudMax+20,25)){
                                         //decrementar
                                         contador=70;
                                     }
                                     else{
-                                        if(onArea(Lienzo,evt,PosX2-20,eje2_Y+AmplitudMax+20,20)){
+                                        if(onArea(Lienzo,evt,PosX2-25,eje2_Y+AmplitudMax+20,25)){
                                             //incrementar
                                             contador=71;
                                         }
                                         else{
-                                            if(onArea(Lienzo,evt,PosX2-100,eje2_Y+AmplitudMax+20,20)){
+                                            if(onArea(Lienzo,evt,PosX2-125,eje2_Y+AmplitudMax+20,25)){
                                                 //reinicializar
                                                 contador=72;
                                             }
@@ -1470,9 +1470,9 @@ function graficar() {
     pincel.closePath();
     
     let aPx=20;
-    onRoundRectXY(pincel,PosX2-30,eje2_Y+AmplitudMax+10,aPx,aPx,2,"gray",colorEscala2,"+","bold 20px Serif","","black");
-    onRoundRectXY(pincel,PosX2-70,eje2_Y+AmplitudMax+10,aPx,aPx,2,"gray",colorEscala1,"-","bold 20px Serif","","black");
-    onRoundRectXY(pincel,PosX2-110,eje2_Y+AmplitudMax+10,aPx,aPx,2,"gray",colorEscala3,"r","bold 20px Serif","","black");
+    onRoundRectXY(pincel,PosX2-35,eje2_Y+AmplitudMax+10,aPx,aPx,2,"gray",colorEscala2,"+","bold 20px Serif","","black");
+    onRoundRectXY(pincel,PosX2-85,eje2_Y+AmplitudMax+10,aPx,aPx,2,"gray",colorEscala1,"-","bold 20px Serif","","black");
+    onRoundRectXY(pincel,PosX2-135,eje2_Y+AmplitudMax+10,aPx,aPx,2,"gray",colorEscala3,"r","bold 20px Serif","","black");
 
     onBarraSuperior(LineaBase);
      
