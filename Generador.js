@@ -20,7 +20,7 @@ for (let i = 0; i < texto.length; i++) {
 
 const formas=["Por defecto","Senosoidal","Triangular","Cuadrada","Forma de sierra","Paquete de ondas"];
 const detalles=["Crestas y valles","Elongación","Máximos y mínimos","Puntos nodales","Amplitud","Período","Frecuencia","Velocidad angular"];
-const Resultante=["Posición vs tiempo","Velocidad vs tiempo","Aceleración vs tiempo","Velocidad y aceleración  ","Posición y velocidad","Posición y aceleración","Y vs V vs A"]
+const Resultante=["Posición vs tiempo","Velocidad vs tiempo","Aceleración vs tiempo","Velocidad y aceleración","Posición y velocidad","Posición y aceleración","Y vs V vs A"]
 const CoefLineas = [1, 0.75, 0.5, 0.25, 0, -0.25, -0.5, -0.75, -1];
 var NoCurvas = 12;
 const NoDatos = 4;
@@ -95,6 +95,8 @@ var Td = [];
 var pMenuFormas=false,pMenu2=false,pMenu3=false, pFrecuencia,pVelocidadA;
 var pdetalles="",pSobreXY=false,pMovimiento=false,pVdC=[true,false,false];
 var OpcionesPeriodo;
+
+var AnchoMenu,AnchoMenu2,AnchoMenu3;
 
 var boton1 = true;
 var bRaton=true;
@@ -501,7 +503,7 @@ function Movimiento(Lienzo,evt){
                                 let A=CxyMenu.x+10;
                                 let B=CxyMenu.y+20+jG/2;
                                 for(let i=0;i<formas.length;++i){
-                                    if(onAreaXY(Lienzo,evt,A+pincel.measureText(formas[i]).width/2,B+jG*i,pincel.measureText(formas[i]).width/2,jG/2)){
+                                    if(onAreaXY(Lienzo,evt,A+AnchoMenu/2,B+jG*i,AnchoMenu/2,jG/2)){
                                         contador=32+i;
                                         break;
                                     }
@@ -510,10 +512,11 @@ function Movimiento(Lienzo,evt){
                             else{
                                 pSobreXY= onAreaXY(Lienzo, evt, Lienzo.width/2, eje1_Y,Lienzo.width/2 ,AmplitudMax)?true:false;
                                 if(pMenu2){
+                                    let jG=26;
                                     let A=CxyMenu2.x-140;
-                                    let B=CxyMenu2.y+40;
+                                    let B=CxyMenu2.y+20+jG/2;
                                     for(let i=0;i<detalles.length;++i){
-                                        if(onAreaXY(Lienzo,evt,A+pincel.measureText(detalles[i]).width/2,B+25*i,pincel.measureText(detalles[i]).width/2,12)){
+                                        if(onAreaXY(Lienzo,evt,A+AnchoMenu2/2,B+jG*i,AnchoMenu2/2,jG/2)){
                                             contador=40+i;
                                             break;
                                         }
@@ -521,10 +524,11 @@ function Movimiento(Lienzo,evt){
                                 }
                                 else{
                                     if(pMenu3){
+                                        let jG=26;
                                         let A=CxyMenu3.x-140;
-                                        let B=CxyMenu3.y+40;
+                                        let B=CxyMenu3.y+20+jG/2;
                                         for(let i=0;i<Resultante.length;++i){
-                                            if(onAreaXY(Lienzo,evt,A+pincel.measureText(Resultante[i]).width/2,B+25*i,pincel.measureText(Resultante[i]).width/2,12)){
+                                            if(onAreaXY(Lienzo,evt,A+AnchoMenu3/2,B+jG*i,AnchoMenu3/2,jG/2)){
                                                 contador=60+i;
                                                 break;
                                             }
@@ -532,7 +536,6 @@ function Movimiento(Lienzo,evt){
                                     }
                                     else{
                                         for (let i = 0; i < NoCurvas; ++i) {
-                                            //if (onArea(Lienzo, evt, XRect[i], DesY1[i],3*over)) {
                                             let ancho=60*factorX;
                                             if (onAreaXY(Lienzo, evt, XRect[i], LineaBase,ancho,FactorEscala)) {
                                                 if (!curvaSeleccionada || curvaClick[i]) {
@@ -582,18 +585,18 @@ function Movimiento(Lienzo,evt){
                                         }
                                     }
                                     //else{
-                                    let PosX2 = Lienzo.width - PosX1;
-                                    if(onArea(Lienzo,evt,PosX1+75,eje2_Y+AmplitudMax+20,25)){
+                                    //let PosX2 = Lienzo.width - PosX1;
+                                    if(onArea(Lienzo,evt,PosX1+75,eje2_Y+AmplitudMax+20,20)){
                                         //decrementar
                                         contador=70;
                                     }
                                     else{
-                                        if(onArea(Lienzo,evt,PosX1+25,eje2_Y+AmplitudMax+20,25)){
+                                        if(onArea(Lienzo,evt,PosX1+25,eje2_Y+AmplitudMax+20,20)){
                                             //incrementar
                                             contador=71;
                                         }
                                         else{
-                                            if(onArea(Lienzo,evt,PosX1+125,eje2_Y+AmplitudMax+20,25)){
+                                            if(onArea(Lienzo,evt,PosX1+125,eje2_Y+AmplitudMax+20,20)){
                                                 //reinicializar
                                                 contador=72;
                                             }
@@ -997,10 +1000,8 @@ function onNodos() {
 }
 function onMenuFormas(){
     var fuente = "bold 16px Serif";
-    var AnchoMenu=150//AltoMenu=170;
-
     let jG=26;
-    AltoMenu=jG*(formas.length);
+    let AltoMenu=jG*(formas.length);
         
     pincel.beginPath()
     pincel.font = fuente;
@@ -1083,23 +1084,21 @@ function onMenu3(){
 }
 function onMenu2XY(){
     var fuente = "bold 16px Serif";
-    var AnchoMenu,AltoMenu;
-        
     pincel.beginPath()
     pincel.font = fuente;
     pincel.textAlign = "left";
     pincel.textBaseline = "middle";
 
     let jG=26;
-    AltoMenu=jG*(detalles.length);
-    AnchoMenu= pincel.measureText(detalles[0]).width;
+    let AltoMenu=jG*(detalles.length);
+    AnchoMenu2= pincel.measureText(detalles[0]).width;
     for(let i=1;i<detalles.length;i++){
-        AnchoMenu=AnchoMenu<pincel.measureText(detalles[i]).width?pincel.measureText(detalles[i]).width:AnchoMenu;
+        AnchoMenu2=AnchoMenu2<pincel.measureText(detalles[i]).width?pincel.measureText(detalles[i]).width:AnchoMenu2;
     }
-    AnchoMenu=AnchoMenu+20;
-    onRoundRectXY(pincel,CxyMenu2.x-AnchoMenu,CxyMenu2.y+20,AnchoMenu,AltoMenu,3,"lightgray","white","");//,"","","");
+    AnchoMenu2=AnchoMenu2+20;
+    onRoundRectXY(pincel,CxyMenu2.x-AnchoMenu2,CxyMenu2.y+20,AnchoMenu2,AltoMenu,3,"lightgray","white","");//,"","","");
     
-    let x=CxyMenu2.x-AnchoMenu+10;
+    let x=CxyMenu2.x-AnchoMenu2+10;
     let y=CxyMenu2.y+20+jG/2;
     for(let i=0;i<detalles.length;i++){
         pincel.fillStyle = "gray";
@@ -1113,22 +1112,20 @@ function onMenu2XY(){
 }
 function onMenu3XY(){
     var fuente = "bold 16px Serif";
-    var AnchoMenu,AltoMenu;
-            
     pincel.beginPath()
     pincel.font = fuente;
     pincel.textAlign = "left";
     pincel.textBaseline = "middle";
 
     let jG=26;
-    AltoMenu=jG*(Resultante.length);
-    AnchoMenu= pincel.measureText(Resultante[0]).width;
+    let AltoMenu=jG*(Resultante.length);
+    AnchoMenu3= pincel.measureText(Resultante[0]).width;
     for(let i=1;i<Resultante.length;i++){
-        AnchoMenu=AnchoMenu<pincel.measureText(Resultante[i]).width?pincel.measureText(Resultante[i]).width:AnchoMenu;
+        AnchoMenu3=AnchoMenu3<pincel.measureText(Resultante[i]).width?pincel.measureText(Resultante[i]).width:AnchoMenu3;
     }
-    AnchoMenu=AnchoMenu+20;
-    onRoundRectXY(pincel,CxyMenu3.x-AnchoMenu,CxyMenu3.y+20,AnchoMenu,AltoMenu,3,"lightgray","white","");//,"","","");
-    let x=CxyMenu3.x-AnchoMenu+10;
+    AnchoMenu3=AnchoMenu3+20;
+    onRoundRectXY(pincel,CxyMenu3.x-AnchoMenu3,CxyMenu3.y+20,AnchoMenu3,AltoMenu,3,"lightgray","white","");//,"","","");
+    let x=CxyMenu3.x-AnchoMenu3+10;
     let y=CxyMenu3.y+20+jG/2;
     for(let i=0;i<Resultante.length;i++){
         pincel.fillStyle = "gray";
@@ -1500,12 +1497,15 @@ function graficar() {
     pincel.stroke();
     pincel.closePath();
     
+    
+    
     let aPx=20;
-    onRoundRectXY(pincel,PosX1+35,eje2_Y+AmplitudMax+10,aPx,aPx,2,"gray",colorEscala2,"+","bold 20px Serif","","black");
-    onRoundRectXY(pincel,PosX1+85,eje2_Y+AmplitudMax+10,aPx,aPx,2,"gray",colorEscala1,"-","bold 20px Serif","","black");
-    onRoundRectXY(pincel,PosX1+135,eje2_Y+AmplitudMax+10,aPx,aPx,2,"gray",colorEscala3,"r","bold 20px Serif","","black");
+    onRoundRectXY(pincel,PosX1+15,eje2_Y+AmplitudMax+10,aPx,aPx,2,"gray",colorEscala2,"+","bold 20px Serif","","black");
+    onRoundRectXY(pincel,PosX1+65,eje2_Y+AmplitudMax+10,aPx,aPx,2,"gray",colorEscala1,"-","bold 20px Serif","","black");
+    onRoundRectXY(pincel,PosX1+115,eje2_Y+AmplitudMax+10,aPx,aPx,2,"gray",colorEscala3,"r","bold 20px Serif","","black");
 
     onBarraSuperior(LineaBase);
+    fDibujarCurvas();
      
     CxyMenu = { x: 30, y: 22 };
     onBotonFormas();
@@ -1601,7 +1601,7 @@ function graficar() {
 
     }
     
-    fDibujarCurvas();  
+    
     onBarraBotones();
        
     if (contador > 0) {
