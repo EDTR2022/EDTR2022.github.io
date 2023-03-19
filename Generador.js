@@ -510,7 +510,10 @@ function Movimiento(Lienzo,evt){
                                 }
                             }
                             else{
-                                pSobreXY= onAreaXY(Lienzo, evt, Lienzo.width/2, eje1_Y,Lienzo.width/2 ,AmplitudMax)?true:false;
+                                pSobreXY= (onAreaXY(Lienzo, evt, Lienzo.width/2, eje1_Y,Lienzo.width/2 ,AmplitudMax) ||
+                                            onAreaXY(Lienzo, evt, Lienzo.width/2, eje2_Y,Lienzo.width/2 ,AmplitudMax)        
+                                
+                                )?true:false;
                                 if(pMenu2){
                                     let jG=26;
                                     let A=CxyMenu2.x-140;
@@ -1509,9 +1512,9 @@ function graficar() {
      
     CxyMenu = { x: 30, y: 22 };
     onBotonFormas();
-    if(pMenuFormas){
-        onMenuFormas();
-    }
+    //if(pMenuFormas){
+        //onMenuFormas();
+    //}
     //Fin del primer Menú
     if (curvaSeleccionada) {
         //CxyMenu2={ x: Lienzo.width - 50, y: eje1_Y-AmplitudMax+22 };
@@ -1594,13 +1597,9 @@ function graficar() {
             }
         }
     }
-    else{
-        //Primer Menú
-    //CxyMenu = { x: 30, y: 22 };
-    //onBotonFormas();
-
+    if(pMenuFormas){
+        onMenuFormas();
     }
-    
     
     onBarraBotones();
        
@@ -1626,7 +1625,7 @@ function graficar() {
             switch (contador) {
                 case 4:
                     A = CxyMenu.x+30;
-                    B=CxyMenu.y;
+                    B=CxyMenu.y-20;
                     break;
                 case 5:
                     A = TipX[j] - C;
