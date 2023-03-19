@@ -497,10 +497,11 @@ function Movimiento(Lienzo,evt){
                         }
                         else {
                             if(pMenuFormas){
+                                let jG=30;
                                 let A=CxyMenu.x+10;
-                                let B=CxyMenu.y+40;
+                                let B=CxyMenu.y+20+jG/2;
                                 for(let i=0;i<formas.length;++i){
-                                    if(onAreaXY(Lienzo,evt,A+pincel.measureText(formas[i]).width/2,B+25*i,pincel.measureText(formas[i]).width/2,12)){
+                                    if(onAreaXY(Lienzo,evt,A+pincel.measureText(formas[i]).width/2,B+jG*i,pincel.measureText(formas[i]).width/2,15)){
                                         contador=32+i;
                                         break;
                                     }
@@ -996,7 +997,14 @@ function onNodos() {
 }
 function onMenuFormas(){
     var fuente = "bold 16px Serif";
-    var AnchoMenu=150,AltoMenu=170;
+    var AnchoMenu=150//AltoMenu=170;
+
+    let jG=30;
+    AltoMenu=jG*(formas.length);
+    //console.log(AltoMenu,formas.length)
+    for(let i=0;i<formas.length;i++){
+        
+    }
             
     onRoundRectXY(pincel,CxyMenu.x,CxyMenu.y+20,AnchoMenu,AltoMenu,3,"lightgray","white","");//,"","","");
     
@@ -1004,6 +1012,8 @@ function onMenuFormas(){
     pincel.font = fuente;
     pincel.textAlign = "left";
     pincel.textBaseline = "middle";
+    let x=CxyMenu.x+10;
+    let y=CxyMenu.y+20+jG/2;
     for(let i=0;i<formas.length;i++){
         pincel.fillStyle = "gray";
         if(!(contador<32)){
@@ -1035,7 +1045,7 @@ function onMenuFormas(){
             NoCurvas=rNoCurvas;
             parametro=rParametro.slice();
         }
-        pincel.fillText(formas[i], CxyMenu.x+10, CxyMenu.y+40+25*i);
+        pincel.fillText(formas[i], x, y+jG*i);
     }
     pincel.closePath();
 }
@@ -1099,12 +1109,14 @@ function onMenu3XY(){
     pincel.font = fuente;
     pincel.textAlign = "left";
     pincel.textBaseline = "middle";
+    let x=CxyMenu3.x-AnchoMenu+10;
+    let y=CxyMenu3.y+40;
     for(let i=0;i<Resultante.length;i++){
         pincel.fillStyle = "gray";
         if(i==contador-60){
             pincel.fillStyle ="black";
         }
-        pincel.fillText(Resultante[i], CxyMenu3.x-AnchoMenu+10, CxyMenu3.y+40+25*i);
+        pincel.fillText(Resultante[i], x, y+25*i);
     }
     pincel.closePath();
 }
