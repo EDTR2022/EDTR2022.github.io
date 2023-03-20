@@ -189,8 +189,7 @@ function onRoundRectXY(ctx, x, y, width, height, radius, color1, color2, txt, fu
 function onRedimensionar() {
     Lienzo.width = (0.95 * window.innerWidth);
     Lienzo.height = (0.95 * window.innerHeight);
-    console.log(Lienzo.width,Lienzo.height)
-    
+        
     factorX = Lienzo.width / anchoLienzoInicial;
     factorY = Lienzo.height / alturaLienzoInicial;
     coefA=factorX;//(Lienzo.width<1216)?factorX:1;
@@ -200,8 +199,8 @@ function onRedimensionar() {
     let Coef=AmplitudMax / Am;
     CoefAmplitud *=Coef;
 
-    LineaBase = 95*factorY;//Lienzo.height/10.870588235;//
-    AnchoP = 40*factorY;//Lienzo.height/20.5333;//
+    LineaBase = 110*factorY;//Lienzo.height/10.870588235;//
+    AnchoP = 55*factorY;//Lienzo.height/20.5333;//
     pLado=15*factorY;
     over = (7 * factorX);
     
@@ -620,6 +619,7 @@ function Movimiento(Lienzo,evt){
         }
     }
     Lienzo.style.cursor = contador > 0? "pointer":"default";
+
 }
 Lienzo.addEventListener('touchstart', function(event){
     bRaton=false;
@@ -630,12 +630,12 @@ Lienzo.addEventListener('touchstart', function(event){
 Lienzo.addEventListener('touchmove', function(event){
         bRaton=false;
         Movimiento(Lienzo,event);
-        }, false);
+}, false);
 Lienzo.addEventListener('touchend', function(event){
     //audioX.onpause;    
     bRaton=true;
     contador=0;
-        }, false);
+}, false);
 Lienzo.addEventListener("mousemove", function (evt) {
     bRaton=true;
     Movimiento(Lienzo,evt);
