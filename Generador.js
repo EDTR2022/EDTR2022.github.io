@@ -540,13 +540,13 @@ function Movimiento(Lienzo,evt){
                                     }
                                     else{
                                         for (let i = 0; i < NoCurvas; ++i) {
-                                            let ancho=(75*factorX);
+                                            let ancho=(80*factorX);
                                             if (onAreaXY(Lienzo, evt, XRect[i], LineaBase,ancho/2,FactorEscala+2*over)) {
                                                 if (!curvaSeleccionada || curvaClick[i]) {
                                                     contador = 7 + i;
                                                     if (RatonAbajo || !bRaton) {
                                                         audioX.play();
-                                                        Altura[i] = (LineaBase - CxyRaton.y)+7;//reducido y sin escalar
+                                                        Altura[i] = (LineaBase - CxyRaton.y)+5;//reducido y sin escalar
                                                         if (vSJAmplitud) {
                                                             Altura[i] = Altura[i] <= -FactorEscala ? -FactorEscala : (Altura[i] > FactorEscala ? FactorEscala : Altura[i]);
                                                             parametro[NoDatos * i] = (Altura[i] / escala[0]);
@@ -632,8 +632,9 @@ Lienzo.addEventListener('touchmove', function(event){
         Movimiento(Lienzo,event);
         }, false);
 Lienzo.addEventListener('touchend', function(event){
-        bRaton=true;
-        contador=0;
+    audioX.onpause;    
+    bRaton=true;
+    contador=0;
         }, false);
 
 Lienzo.addEventListener("mousemove", function (evt) {
@@ -699,7 +700,7 @@ function onBarraSuperior(Base) {
     }
 
     let Ancho = (60 * factorX);
-    Margen = Ancho / 2;//(50*factorX);
+    Margen = Ancho;
     CentroControl = ((NoCurvas * Ancho + (NoCurvas - 1) * Margen) / 2);
     AnchoGrafico = (Lienzo.width / 2);
     InicioBarraHerramientas = AnchoGrafico - CentroControl;
