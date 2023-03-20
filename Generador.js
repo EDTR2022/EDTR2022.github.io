@@ -539,8 +539,8 @@ function Movimiento(Lienzo,evt){
                                     }
                                     else{
                                         for (let i = 0; i < NoCurvas; ++i) {
-                                            let ancho=60*factorX;
-                                            if (onAreaXY(Lienzo, evt, XRect[i], LineaBase,ancho,FactorEscala)) {
+                                            let ancho=(60*factorX);
+                                            if (onAreaXY(Lienzo, evt, XRect[i], LineaBase,ancho/2,FactorEscala+2*over)) {
                                                 if (!curvaSeleccionada || curvaClick[i]) {
                                                     contador = 7 + i;
                                                     if (RatonAbajo || !bRaton) {
