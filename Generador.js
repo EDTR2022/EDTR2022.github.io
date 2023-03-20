@@ -620,33 +620,29 @@ function Movimiento(Lienzo,evt){
         }
     }
     Lienzo.style.cursor = contador > 0? "pointer":"default";
-
 }
-
 Lienzo.addEventListener('touchstart', function(event){
     bRaton=false;
     if (event.targetTouches.length == 1) { 
     Movimiento(Lienzo,event);
     }
-    
-    }, false);    
+}, false);    
 Lienzo.addEventListener('touchmove', function(event){
         bRaton=false;
         Movimiento(Lienzo,event);
         }, false);
 Lienzo.addEventListener('touchend', function(event){
-    audioX.onpause;    
+    //audioX.onpause;    
     bRaton=true;
     contador=0;
         }, false);
-
 Lienzo.addEventListener("mousemove", function (evt) {
     bRaton=true;
     Movimiento(Lienzo,evt);
 }, false);
 
 Lienzo.addEventListener("mouseup",function (evt) {
-    audioX.onpause;
+    //audioX.onpause;
 }, false);
 Lienzo.addEventListener("mouseout", function (evt) {
     //RatonAbajoA=false;
