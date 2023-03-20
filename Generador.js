@@ -539,12 +539,12 @@ function Movimiento(Lienzo,evt){
                                     }
                                     else{
                                         for (let i = 0; i < NoCurvas; ++i) {
-                                            let ancho=(60*factorX);
-                                            if (onAreaXY(Lienzo, evt, XRect[i], LineaBase,ancho/2,FactorEscala+2*over)) {
+                                            let ancho=(75*factorX);
+                                            if (onAreaXY(Lienzo, evt, XRect[i], LineaBase,ancho/2,FactorEscala+over)) {
                                                 if (!curvaSeleccionada || curvaClick[i]) {
                                                     contador = 7 + i;
                                                     if (RatonAbajo || !bRaton) {
-                                                        Altura[i] = LineaBase - CxyRaton.y;//reducido y sin escalar
+                                                        Altura[i] = (LineaBase - CxyRaton.y)+5;//reducido y sin escalar
                                                         if (vSJAmplitud) {
                                                             Altura[i] = Altura[i] <= -FactorEscala ? -FactorEscala : (Altura[i] > FactorEscala ? FactorEscala : Altura[i]);
                                                             parametro[NoDatos * i] = (Altura[i] / escala[0]);
