@@ -24,10 +24,11 @@ const Resultante=["Posición vs tiempo","Velocidad vs tiempo","Aceleración vs t
 const CoefLineas = [1, 0.75, 0.5, 0.25, 0, -0.25, -0.5, -0.75, -1];
 var NoCurvas = 12;
 const NoDatos = 4;
-const anchoLienzoInicial = 1824;//1297;//980;//1824;
-const alturaLienzoInicial = 924;//627;//480;//924;
+const anchoLienzoInicial = 1824;//1297;//1216;
+const alturaLienzoInicial = 924;//627;582;
 const Porcent = 105;
 const scool1 = alturaLienzoInicial / Porcent;
+var coefA=1;
 //const scool2=anchoLienzoInicial/300;
 
 var AmplitudMax = alturaLienzoInicial / scool1;
@@ -188,9 +189,11 @@ function onRoundRectXY(ctx, x, y, width, height, radius, color1, color2, txt, fu
 function onRedimensionar() {
     Lienzo.width = (0.95 * window.innerWidth);
     Lienzo.height = (0.95 * window.innerHeight);
+    console.log(Lienzo.width,Lienzo.height)
     
     factorX = Lienzo.width / anchoLienzoInicial;
     factorY = Lienzo.height / alturaLienzoInicial;
+    coefA=factorX;//(Lienzo.width<1216)?factorX:1;
 
     let Am = AmplitudMax;
     AmplitudMax = Lienzo.height / scool1;
@@ -198,7 +201,7 @@ function onRedimensionar() {
     CoefAmplitud *=Coef;
 
     LineaBase = 95*factorY;//Lienzo.height/10.870588235;//
-    AnchoP = 55*factorY;//Lienzo.height/20.5333;//
+    AnchoP = 40*factorY;//Lienzo.height/20.5333;//
     pLado=15*factorY;
     over = (7 * factorX);
     
@@ -540,13 +543,12 @@ function Movimiento(Lienzo,evt){
                                     }
                                     else{
                                         for (let i = 0; i < NoCurvas; ++i) {
-                                            let ancho=(80*factorX);
-                                            if (onAreaXY(Lienzo, evt, XRect[i], LineaBase,ancho/2,FactorEscala+2*over)) {
+                                            let ancho=(80*coefA);
+                                            if (onAreaXY(Lienzo, evt, XRect[i], LineaBase,ancho/2,FactorEscala+over)) {
                                                 if (!curvaSeleccionada || curvaClick[i]) {
                                                     contador = 7 + i;
                                                     if (RatonAbajo || !bRaton) {
-                                                        audioX.play();
-                                                        Altura[i] = (LineaBase - CxyRaton.y)+5;//reducido y sin escalar
+                                                        Altura[i] = LineaBase - CxyRaton.y+5;//reducido y sin escalar
                                                         if (vSJAmplitud) {
                                                             Altura[i] = Altura[i] <= -FactorEscala ? -FactorEscala : (Altura[i] > FactorEscala ? FactorEscala : Altura[i]);
                                                             parametro[NoDatos * i] = (Altura[i] / escala[0]);
@@ -565,6 +567,7 @@ function Movimiento(Lienzo,evt){
                                                             }
                                                             Td[i] = parametro[NoDatos * i + 2] * conversion * parametro[NoDatos * i + 1] / (2 * Math.PI);
                                                         }
+                                                        audioX.play();
                                                         break;
                                                     }
                                                 }
