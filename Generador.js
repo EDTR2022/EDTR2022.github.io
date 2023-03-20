@@ -146,6 +146,7 @@ var XRect = [], YRect = [];
 var DesY1 = [];
 var Altura = [];
 var PeriodoXY=[],PeriodoVal=[true,false,false];
+var audioX = document.getElementById("myAudio"); 
 
 function onRoundRectXY(ctx, x, y, width, height, radius, color1, color2, txt, fuenteTxt, sub, color3) {
     ctx.strokeStyle = color1;
@@ -544,7 +545,8 @@ function Movimiento(Lienzo,evt){
                                                 if (!curvaSeleccionada || curvaClick[i]) {
                                                     contador = 7 + i;
                                                     if (RatonAbajo || !bRaton) {
-                                                        Altura[i] = (LineaBase - CxyRaton.y)+12;//reducido y sin escalar
+                                                        audioX.play();
+                                                        Altura[i] = (LineaBase - CxyRaton.y)+7;//reducido y sin escalar
                                                         if (vSJAmplitud) {
                                                             Altura[i] = Altura[i] <= -FactorEscala ? -FactorEscala : (Altura[i] > FactorEscala ? FactorEscala : Altura[i]);
                                                             parametro[NoDatos * i] = (Altura[i] / escala[0]);
@@ -639,6 +641,9 @@ Lienzo.addEventListener("mousemove", function (evt) {
     Movimiento(Lienzo,evt);
 }, false);
 
+Lienzo.addEventListener("mouseup",function (evt) {
+    audioX.onpause;
+}, false);
 Lienzo.addEventListener("mouseout", function (evt) {
     //RatonAbajoA=false;
     Lienzo.style.cursor = "default";
