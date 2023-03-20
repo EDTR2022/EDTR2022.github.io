@@ -544,7 +544,7 @@ function Movimiento(Lienzo,evt){
                                                 if (!curvaSeleccionada || curvaClick[i]) {
                                                     contador = 7 + i;
                                                     if (RatonAbajo || !bRaton) {
-                                                        Altura[i] = (LineaBase - CxyRaton.y)+5;//reducido y sin escalar
+                                                        Altura[i] = (LineaBase - CxyRaton.y)+12;//reducido y sin escalar
                                                         if (vSJAmplitud) {
                                                             Altura[i] = Altura[i] <= -FactorEscala ? -FactorEscala : (Altura[i] > FactorEscala ? FactorEscala : Altura[i]);
                                                             parametro[NoDatos * i] = (Altura[i] / escala[0]);
@@ -619,21 +619,19 @@ function Movimiento(Lienzo,evt){
 }
 
 Lienzo.addEventListener('touchstart', function(event){
-    //Comprobamos si hay varios eventos del mismo tipo
     bRaton=false;
     if (event.targetTouches.length == 1) { 
-    //var touch = event.targetTouches[0]; 
-    // con esto solo se procesa UN evento touch
     Movimiento(Lienzo,event);
-    //alert(" se ha producido un touchstart en las siguientes cordenas: X " + touch.pageX + " en Y " + touch.pageY);
     }
     
     }, false);    
 Lienzo.addEventListener('touchmove', function(event){
-        //Comprobamos si hay varios eventos del mismo tipo
         bRaton=false;
         Movimiento(Lienzo,event);
-        
+        }, false);
+Lienzo.addEventListener('touchend', function(event){
+        bRaton=true;
+        contador=0;
         }, false);
 
 Lienzo.addEventListener("mousemove", function (evt) {
