@@ -545,7 +545,7 @@ function Movimiento(Lienzo,evt){
                                         for (let i = 0; i < NoCurvas; ++i) {
                                             let ancho=(80*coefA);
                                             if (onAreaXY(Lienzo, evt, XRect[i], LineaBase,ancho/2,FactorEscala+2*over)) {
-                                                if (!curvaSeleccionada || curvaClick[i]) {
+                                                //if (!curvaSeleccionada || curvaClick[i]) {
                                                     contador = 7 + i;
                                                     if (RatonAbajo || !bRaton) {
                                                         Altura[i] = LineaBase - CxyRaton.y+5;//reducido y sin escalar
@@ -570,7 +570,7 @@ function Movimiento(Lienzo,evt){
                                                         audioX.play();
                                                         break;
                                                     }
-                                                }
+                                                //}
                                             }
                                             else {
                                                 if (onArea(Lienzo, evt, XRect[i], AltoP+pLado/2, (pLado/2+3*over))) {
