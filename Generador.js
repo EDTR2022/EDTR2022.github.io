@@ -5,6 +5,7 @@ const divisiones = 12;
 //const Hora_Inicial=performance.now();
 const diagonalIni = 1074;
 
+const audioX = document.getElementById("myAudio"); 
 const Lienzo = document.getElementById("idLienzo");
 const pincel = Lienzo.getContext("2d");
 
@@ -147,7 +148,6 @@ var XRect = [], YRect = [];
 var DesY1 = [];
 var Altura = [];
 var PeriodoXY=[],PeriodoVal=[true,false,false];
-var audioX = document.getElementById("myAudio"); 
 
 function onRoundRectXY(ctx, x, y, width, height, radius, color1, color2, txt, fuenteTxt, sub, color3) {
     ctx.strokeStyle = color1;
