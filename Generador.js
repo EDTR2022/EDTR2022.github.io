@@ -30,7 +30,6 @@ const alturaLienzoInicial = 924;//627;582;
 const Porcent = 105;
 const scool1 = alturaLienzoInicial / Porcent;
 var coefA=1;
-//const scool2=anchoLienzoInicial/300;
 
 var AmplitudMax = alturaLienzoInicial / scool1;
 var PeriodoMax = 10;
@@ -38,13 +37,10 @@ var DesfaseMax = 90;
 var Txycoeficiente=1.0;
 var colorEscala1="white",colorEscala2="white",colorEscala3="white";
 
-//var CxyDesplazamiento = { x: 0, y: 0 }, CxyVelocidad = { x: 0, y: 0 }, CxyAceleracion = { x: 0, y: 0 }, CxyMenu = { x: 0, y: 0 };
-
 const desplazamientoTrue = new Image();
 desplazamientoTrue.src = "A.svg";
 desplazamientoTrue.onload = function () {
 }
-
 const desplazamientoFalse = new Image();
 desplazamientoFalse.src = "Afalse.svg";
 desplazamientoFalse.onload = function () {
@@ -53,25 +49,20 @@ const velocidadTrue = new Image();
 velocidadTrue.src = "T.svg";
 velocidadTrue.onload = function () {
 }
-
 const velocidadFalse = new Image();
 velocidadFalse.src = "Tfalse.svg";
 velocidadFalse.onload = function () {
 }
-
 const aceleracionTrue = new Image();
 aceleracionTrue.src = "d.svg";
 aceleracionTrue.onload = function () {
 }
-
 const aceleracionFalse = new Image();
 aceleracionFalse.src = "dfalse.svg";
 aceleracionFalse.onload = function () {
 }
-//Inicializaciones para graficar y dibujar curvas
 const espaciado = 5;
 const PosX1 = (4 * espaciado);
-
 var eje1_Y, eje2_Y;//ordenada=[];
 var Ancho;
 var over=7;
@@ -79,12 +70,10 @@ var InicioBarraHerramientas;
 var Margen;
 var CentroControl;
 var factorX, factorY;
-
 var AnimacionBsSalida = 0;
 var seccion;//=Math.floor(Lienzo.height/12);
 var Tclick = false;
 var contador = 0;
-
 var continuar = true;
 var incremento = PosX1;
 var BarraSuperiorVisible = true;
@@ -97,14 +86,10 @@ var Td = [];
 var pMenuFormas=false,pMenu2=false,pMenu3=false, pFrecuencia,pVelocidadA;
 var pdetalles="",pSobreXY=false,pMovimiento=false,pVdC=[true,false,false];
 var OpcionesPeriodo;
-
 var AnchoMenu,AnchoMenu2,AnchoMenu3;
-
 var boton1 = true;
 var bRaton=true;
-var /*parametro = [1.5, 5, 0, "green", 0, 5, 0, "red", 0,5, 0, "blue", 0, 5, 0, "#D35400", 0, 5, 0, "chartreuse", 0, 5, 0, "darkmagenta", 0, 5, 0, "darkred",
-                 0, 5, 0, "lightgreen", 0, 5, 0, "khaki", 0, 5, 0, "lightsalmon", 0, 5, 0, "magenta", 0, 5, 0, "orange"];*/
-    parametro = [1.5, 5, 0, "green", -1.0, 5, 0, "red", 1.0,5, 0, "blue", 0, 5, 0, "#D35400", 0, 5, 0, "chartreuse", 0, 5, 0, "darkmagenta", 0, 5, 0, "darkred",
+var parametro = [1.5, 5, 0, "green", -1.0, 5, 0, "red", 1.0,5, 0, "blue", 0, 5, 0, "#D35400", 0, 5, 0, "chartreuse", 0, 5, 0, "darkmagenta", 0, 5, 0, "darkred",
                 0, 5, 0, "lightgreen", 0, 5, 0, "khaki", 0, 5, 0, "lightsalmon", 0, 5, 0, "magenta", 0, 5, 0, "orange"];
 var rParametro=[];
 var rNoCurvas;
@@ -122,22 +107,21 @@ const Titulo ="Envolvente de armónicos";
 var subTitulo ="Superposición de armónicos";
 var PreTitulo="";
 var NoCurvaSeleccionada=0;
-
-var LineaBase;// = 85;
-var AnchoP;// = 45;
+var LineaBase;
+var AnchoP;
 var AltoP;
 var pLado;
 
-var FactorEscala;// = (LineaBase - AnchoP);
-var escala;// = [FactorEscala / AmplitudMax, PeriodoMax / FactorEscala, DesfaseMax / FactorEscala];
+var FactorEscala;
+var escala;
 
 var CoefAmplitud=1;
 var RatonAbajo = false;
-var CxyRaton;//Coordenadas del raton;
+var CxyRaton;
 var CxyDesplazamiento = { x: 0, y: 0 }, CxyVelocidad = { x: 0, y: 0 }, CxyAceleracion = { x: 0, y: 0 }, CxyMenu = { x: 0, y: 0 };
 
-var CxyMenu2;// = { x: 20, y: 20 };
-var CxyMenu3;// = { x: 20, y: 20 };
+var CxyMenu2;
+var CxyMenu3;
 var CxyLogo = { x: 0, y: 0 };
 
 var sobre = [false, false, false, false];
@@ -192,20 +176,20 @@ function onRedimensionar() {
         
     factorX = Lienzo.width / anchoLienzoInicial;
     factorY = Lienzo.height / alturaLienzoInicial;
-    coefA=factorX;//(Lienzo.width<1216)?factorX:1;
+    coefA=factorX;
 
     let Am = AmplitudMax;
     AmplitudMax = Lienzo.height / scool1;
     let Coef=AmplitudMax / Am;
     CoefAmplitud *=Coef;
 
-    LineaBase = 110*factorY;//Lienzo.height/10.870588235;//
-    AnchoP = 55*factorY;//Lienzo.height/20.5333;//
+    LineaBase = 110*factorY;
+    AnchoP = 55*factorY;
     pLado=15*factorY;
     over = (7 * factorX);
     
     FactorEscala = (LineaBase - AnchoP);
-    AltoP=1;//pLado/2;//FactorEscala/8;
+    AltoP=1;
     escala = [FactorEscala / AmplitudMax, PeriodoMax / FactorEscala, DesfaseMax / FactorEscala];
 
     for (let i = 0; i < NoCurvas; ++i) {
@@ -213,7 +197,7 @@ function onRedimensionar() {
 
     }
 
-    eje1_Y = Lienzo.height / 3;
+    eje1_Y = Lienzo.height / 3+10;
     eje2_Y = 2 * Lienzo.height / 3 + 75 * factorY;
     CxyMenu2={ x: Lienzo.width - 50, y: eje1_Y-AmplitudMax+22 };
     CxyMenu3={ x: Lienzo.width - 50, y: eje2_Y-AmplitudMax+22 };
@@ -305,7 +289,6 @@ Lienzo.addEventListener("click", function () {
     }
     else {
         if (!(contador < 20)&&(contador<32)) {
-            //curvaClick[contador - 20] = curvaClick[contador - 20] ? false : true;
             curvaSeleccionada = false;
             continuar=true;
             let RmAj=contador-20;
@@ -315,7 +298,6 @@ Lienzo.addEventListener("click", function () {
                     if (curvaClick[RmAj] = curvaClick[RmAj] ? false : true) {
                         curvaSeleccionada = true;
                         NoCurvaSeleccionada=RmAj+1;
-                        //break;
                     }
 
                 }
@@ -325,7 +307,6 @@ Lienzo.addEventListener("click", function () {
                 }
             }
             if(!curvaSeleccionada){
-                //pMenuFormas=true;
                 pdetalles="";
                 pMovimiento=false;
                 pFrecuencia=false;
@@ -336,7 +317,6 @@ Lienzo.addEventListener("click", function () {
                                
             }
             else{
-                //pMenuFormas=false;
                 pMovimiento=true;
                 incremento=0;
                 pVdC=[false,true,true];
@@ -422,7 +402,6 @@ Lienzo.addEventListener("click", function () {
                             switch(contador-60){
                                 case 0:
                                     pVdC=[true,false,false];
-                                    
                                     subTitulo ="Gráfico de posición vs tiempo";
                                     break;
                                 case 1:
@@ -591,25 +570,19 @@ function Movimiento(Lienzo,evt){
                                             }
                                         }
                                     }
-                                    //else{
-                                    //let PosX2 = Lienzo.width - PosX1;
                                     if(onArea(Lienzo,evt,PosX1+75,eje2_Y+AmplitudMax+20,20)){
-                                        //decrementar
                                         contador=70;
                                     }
                                     else{
                                         if(onArea(Lienzo,evt,PosX1+25,eje2_Y+AmplitudMax+20,20)){
-                                            //incrementar
                                             contador=71;
                                         }
                                         else{
                                             if(onArea(Lienzo,evt,PosX1+125,eje2_Y+AmplitudMax+20,20)){
-                                                //reinicializar
                                                 contador=72;
                                             }
                                         }
                                     }
-                                    //}
                                 }
                             }    
                         }
@@ -645,7 +618,6 @@ Lienzo.addEventListener("mouseup",function (evt) {
     //audioX.onpause;
 }, false);
 Lienzo.addEventListener("mouseout", function (evt) {
-    //RatonAbajoA=false;
     Lienzo.style.cursor = "default";
     contador = 0;
 }, false);
@@ -1440,18 +1412,12 @@ function onPeriodo4(){
     }
 }
 function graficar() {
-    //over = (7 * factorX);//radio de los circulos y distancia entre ellos
     var PosX2 = Lienzo.width - PosX1;
     var fuente = "bold 14px Serif";
-    
-
     //Borra la lienzo
     pincel.clearRect(0, 0, Lienzo.width, Lienzo.height);
-
     //Define los ejes del M.A.S
-
     pincel.beginPath();
-
     pincel.fillStyle = "gray";
     pincel.font = fuente;
     pincel.textAlign = "center";
@@ -1502,8 +1468,6 @@ function graficar() {
     pincel.strokeStyle = "black";
     pincel.stroke();
     pincel.closePath();
-    
-    
     
     let aPx=20;
     onRoundRectXY(pincel,PosX1+15,eje2_Y+AmplitudMax+10,aPx,aPx,2,"gray",colorEscala2,"+","bold 20px Serif","","black");
@@ -1661,7 +1625,7 @@ function graficar() {
                     break;
                 default:
                     q = contador - 7;
-                    B = (LineaBase-DesY1[q])>0? LineaBase + 10:LineaBase-35;
+                    B = (LineaBase-DesY1[q])>0? LineaBase +FactorEscala:LineaBase-FactorEscala-10;
                     A = XRect[q];
                     subindice=(q+1)>9?"12":"1";
 
@@ -1682,7 +1646,7 @@ function graficar() {
                         }
                     }
                     
-                    C = pincel.measureText(texto[q]).width + pincel.measureText(Amp).width+20;
+                    C = pincel.measureText(texto[q]).width + pincel.measureText(Amp).width+10;
                     A -= C / 2;
                     break;
             }
@@ -1693,10 +1657,8 @@ function graficar() {
 
 function Dibujo() {
     graficar();
-    //incremento = continuar ? ++incremento : incremento;
     setTimeout(
         function () {
-            //let idIntervalo = 
             window.requestAnimationFrame(Dibujo);
         }, 1000 / fps);
 }
