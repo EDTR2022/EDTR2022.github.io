@@ -1625,7 +1625,7 @@ function graficar() {
                     break;
                 default:
                     q = contador - 7;
-                    B = (LineaBase-DesY1[q])>0? LineaBase +FactorEscala:LineaBase-FactorEscala-10;
+                    B = (LineaBase-DesY1[q])>0? LineaBase +FactorEscala:AnchoP-30;
                     A = XRect[q];
                     subindice=(q+1)>9?"12":"1";
 
