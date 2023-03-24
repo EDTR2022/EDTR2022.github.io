@@ -319,9 +319,9 @@ Lienzo.addEventListener("click", function () {
             else{
                 pMovimiento=true;
                 incremento=0;
-                pVdC=[false,true,true];
+                pVdC=[true,false,false];
                 PreTitulo="Curva No."+ NoCurvaSeleccionada; 
-                subTitulo ="Gráfico de velocidad y aceleración vs tiempo";
+                subTitulo ="Gráfico de posición vs tiempo";
             }    
         }
         else {
