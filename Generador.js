@@ -29,7 +29,7 @@ const anchoLienzoInicial = 1824;//1297;//1216;
 const alturaLienzoInicial = 924;//627;582;
 const Porcent = 105;
 const scool1 = alturaLienzoInicial / Porcent;
-var coefA=1;
+var coefA;
 
 var AmplitudMax = alturaLienzoInicial / scool1;
 var PeriodoMax = 10;
@@ -176,7 +176,7 @@ function onRedimensionar() {
         
     factorX = Lienzo.width / anchoLienzoInicial;
     factorY = Lienzo.height / alturaLienzoInicial;
-    coefA=factorX;
+    coefA=80*factorX/2;
 
     let Am = AmplitudMax;
     AmplitudMax = Lienzo.height / scool1;
@@ -521,12 +521,12 @@ function Movimiento(Lienzo,evt){
                                     }
                                     else{
                                         for (let i = 0; i < NoCurvas; ++i) {
-                                            let ancho=(80*coefA);
-                                            if (onAreaXY(Lienzo, evt, XRect[i], LineaBase,ancho/2,FactorEscala+2*over)) {
+                                            
+                                            if (onAreaXY(Lienzo, evt, XRect[i], LineaBase,coefA,FactorEscala+2*over)) {
                                                 if (!curvaSeleccionada || curvaClick[i]) {
                                                     contador = 7 + i;
                                                     if (RatonAbajo || !bRaton) {
-                                                        Altura[i] = LineaBase - CxyRaton.y+2;//reducido y sin escalar
+                                                        Altura[i] = LineaBase - CxyRaton.y;//reducido y sin escalar
                                                         if (vSJAmplitud) {
                                                             Altura[i] = Altura[i] <= -FactorEscala ? -FactorEscala : (Altura[i] > FactorEscala ? FactorEscala : Altura[i]);
                                                             parametro[NoDatos * i] = (Altura[i] / escala[0]);
