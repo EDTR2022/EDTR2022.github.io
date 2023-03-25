@@ -602,7 +602,7 @@ Lienzo.addEventListener('touchstart', function(event){
 }, false);    
 Lienzo.addEventListener('touchmove', function(event){
         bRaton=false;
-        Movimiento(Lienzo,touch.evt);
+        Movimiento(Lienzo,event);
 }, false);
 Lienzo.addEventListener('touchend', function(event){
     //audioX.onpause;    
