@@ -526,7 +526,7 @@ function Movimiento(Lienzo,evt){
                                                 if (!curvaSeleccionada || curvaClick[i]) {
                                                     contador = 7 + i;
                                                     if (RatonAbajo || !bRaton) {
-                                                        Altura[i] = LineaBase - CxyRaton.y;//reducido y sin escalar
+                                                        Altura[i] = LineaBase - CxyRaton.y+2;//reducido y sin escalar
                                                         if (vSJAmplitud) {
                                                             Altura[i] = Altura[i] <= -FactorEscala ? -FactorEscala : (Altura[i] > FactorEscala ? FactorEscala : Altura[i]);
                                                             parametro[NoDatos * i] = (Altura[i] / escala[0]);
@@ -602,7 +602,10 @@ Lienzo.addEventListener('touchstart', function(event){
 }, false);    
 Lienzo.addEventListener('touchmove', function(event){
         bRaton=false;
-        Movimiento(Lienzo,event);
+        for (var i = 0; i < event.touches.length; i++) { 
+            var touch = event.touches[i]; 
+            Movimiento(Lienzo,touch.evt);
+        }
 }, false);
 Lienzo.addEventListener('touchend', function(event){
     //audioX.onpause;    
