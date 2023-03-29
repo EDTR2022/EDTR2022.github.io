@@ -921,7 +921,7 @@ function onMaximosMinimos() {
                     pincel.closePath();
                 }
 
-                let Ci=(2 *parametro[NoDatos * q] / AmplitudMax);
+                /*let Ci=(2 *parametro[NoDatos * q] / AmplitudMax);
                 Ci=Ci<0?Ci=-Ci:Ci;
                 if(SdTa<0){
                     B=B+15;
@@ -930,8 +930,11 @@ function onMaximosMinimos() {
                 else{
                     B=B-15;
                 }
-                let txt = t.toFixed(2) + " , " + Ci.toFixed(2);
+                let txt = t.toFixed(2) + " , " + Ci.toFixed(2);*/
                 
+                let txt = t.toFixed(2) + " , " + (2 *parametro[NoDatos * q] / AmplitudMax).toFixed(2);
+                B = SdTa < 0 ? B + 15 : B - 15;
+
                 pincel.beginPath()
                 pincel.fillStyle = "gray";
                 pincel.font = fuente;
