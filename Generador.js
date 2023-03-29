@@ -525,7 +525,7 @@ function Movimiento(Lienzo,evt){
                                                 if (!curvaSeleccionada || curvaClick[i]) {
                                                     contador = 7 + i;
                                                     if (RatonAbajo || !bRaton) {
-                                                        Altura[i] = LineaBase - CxyRaton.y+3;//reducido y sin escalar
+                                                        Altura[i] = LineaBase - CxyRaton.y+2;//reducido y sin escalar
                                                         if (vSJAmplitud) {
                                                             Altura[i] = Altura[i] <= -FactorEscala ? -FactorEscala : (Altura[i] > FactorEscala ? FactorEscala : Altura[i]);
                                                             parametro[NoDatos * i] = (Altura[i] / escala[0]);
@@ -544,7 +544,7 @@ function Movimiento(Lienzo,evt){
                                                             }
                                                             Td[i] = parametro[NoDatos * i + 2] * conversion * parametro[NoDatos * i + 1] / (2 * Math.PI);
                                                         }
-                                                        //audioX.play();
+                                                        audioX.play();
                                                         break;
                                                     }
                                                 }
@@ -601,7 +601,7 @@ Lienzo.addEventListener('touchstart', function(event){
 }, false);    
 Lienzo.addEventListener('touchmove', function(event){
         bRaton=false;
-        Movimiento(Lienzo,touch.evt);
+        Movimiento(Lienzo,event);
 }, false);
 Lienzo.addEventListener('touchend', function(event){
     //audioX.onpause;    
@@ -921,7 +921,7 @@ function onMaximosMinimos() {
                     pincel.closePath();
                 }
 
-                /*let Ci=(2 *parametro[NoDatos * q] / AmplitudMax);
+                let Ci=(2 *parametro[NoDatos * q] / AmplitudMax);
                 Ci=Ci<0?Ci=-Ci:Ci;
                 if(SdTa<0){
                     B=B+15;
@@ -930,11 +930,8 @@ function onMaximosMinimos() {
                 else{
                     B=B-15;
                 }
-                let txt = t.toFixed(2) + " , " + Ci.toFixed(2);*/
+                let txt = t.toFixed(2) + " , " + Ci.toFixed(2);
                 
-                let txt = t.toFixed(2) + " , " + (2 *parametro[NoDatos * q] / AmplitudMax).toFixed(2);
-                B = SdTa < 0 ? B + 15 : B - 15;
-
                 pincel.beginPath()
                 pincel.fillStyle = "gray";
                 pincel.font = fuente;
