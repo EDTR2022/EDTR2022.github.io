@@ -1429,7 +1429,7 @@ function graficar() {
     pincel.font = fuente;
     pincel.textAlign = "center";
     pincel.textBaseline = "middle";
-    pincel.fillText(Titulo, Lienzo.width/2, eje1_Y-AmplitudMax-10);
+    pincel.fillText(Titulo, Lienzo.width/2, eje1_Y-AmplitudMax-30);
     pincel.fillText(PreTitulo, Lienzo.width/2, eje2_Y-AmplitudMax-25);
     pincel.fillText(subTitulo, Lienzo.width/2, eje2_Y-AmplitudMax-10);
 
