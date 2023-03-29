@@ -544,7 +544,7 @@ function Movimiento(Lienzo,evt){
                                                             }
                                                             Td[i] = parametro[NoDatos * i + 2] * conversion * parametro[NoDatos * i + 1] / (2 * Math.PI);
                                                         }
-                                                        audioX.play();
+                                                        //audioX.play();
                                                         break;
                                                     }
                                                 }
