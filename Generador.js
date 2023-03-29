@@ -1132,8 +1132,8 @@ function onFormaDefault(){
 }
 function onFormaSenoidal(){
     //NoCurvas=11;
-    parametro = [1.7, 5, 0, "green", 0, 0, 0, "red", 0,0, 0, "blue", 0, 0, 0, "#D35400", 0, 0, 0, "chartreuse", 0, 0, 0, "darkmagenta", 0, 0, 0, "darkred",
-                0, 0, 0, "lightgreen", 0, 0, 0, "khaki", 0, 0, 0, "lightsalmon", 0, 0, 0, "magenta", 0, 0, 0, "orange"];
+    parametro = [1.7, 5, 0, "green", 0, 5, 0, "red", 0,5, 0, "blue", 0, 5, 0, "#D35400", 0, 5, 0, "chartreuse", 0, 5, 0, "darkmagenta", 0, 5, 0, "darkred",
+                0, 5, 0, "lightgreen", 0, 5, 0, "khaki", 0, 5, 0, "lightsalmon", 0, 5, 0, "magenta", 0, 5, 0, "orange"];
                 for (let i = 0; i < NoCurvas; i++) {
                     parametro[NoDatos*i]=CoefAmplitud*parametro[NoDatos*i]*FcToPixeles;
                 }
