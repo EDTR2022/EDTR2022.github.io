@@ -602,7 +602,7 @@ Lienzo.addEventListener('touchstart', function(event){
 }, false);    
 Lienzo.addEventListener('touchmove', function(event){
         bRaton=false;
-        Movimiento(Lienzo,event);
+        Movimiento(Lienzo,touch.evt);
 }, false);
 Lienzo.addEventListener('touchend', function(event){
     //audioX.onpause;    
@@ -922,9 +922,17 @@ function onMaximosMinimos() {
                     pincel.closePath();
                 }
 
-                let txt = t.toFixed(2) + " , " + (2 *parametro[NoDatos * q] / AmplitudMax).toFixed(2);
-                B = SdTa < 0 ? B + 15 : B - 15;
-
+                let Ci=(2 *parametro[NoDatos * q] / AmplitudMax);
+                Ci=Ci<0?Ci=-Ci:Ci;
+                if(SdTa<0){
+                    B=B+15;
+                    Ci=-Ci;
+                }
+                else{
+                    B=B-15;
+                }
+                let txt = t.toFixed(2) + " , " + Ci.toFixed(2);
+                
                 pincel.beginPath()
                 pincel.fillStyle = "gray";
                 pincel.font = fuente;
