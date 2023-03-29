@@ -521,12 +521,11 @@ function Movimiento(Lienzo,evt){
                                     }
                                     else{
                                         for (let i = 0; i < NoCurvas; ++i) {
-                                            
                                             if (onAreaXY(Lienzo, evt, XRect[i], LineaBase,coefA,FactorEscala+2*over)) {
                                                 if (!curvaSeleccionada || curvaClick[i]) {
                                                     contador = 7 + i;
                                                     if (RatonAbajo || !bRaton) {
-                                                        Altura[i] = LineaBase - CxyRaton.y+2;//reducido y sin escalar
+                                                        Altura[i] = LineaBase - CxyRaton.y+3;//reducido y sin escalar
                                                         if (vSJAmplitud) {
                                                             Altura[i] = Altura[i] <= -FactorEscala ? -FactorEscala : (Altura[i] > FactorEscala ? FactorEscala : Altura[i]);
                                                             parametro[NoDatos * i] = (Altura[i] / escala[0]);
