@@ -27,7 +27,7 @@ var NoCurvas = 12;
 const NoDatos = 4;
 const anchoLienzoInicial = 1824;//1297;//1216;
 const alturaLienzoInicial = 924;//627;582;
-const Porcent = 105;
+const Porcent = 95;
 const scool1 = alturaLienzoInicial / Porcent;
 var coefA;
 
